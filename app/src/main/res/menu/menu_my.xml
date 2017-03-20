@@ -1,0 +1,39 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.example.song.myfirstapp.MyActivity">
+    <item
+        android:id="@+id/miProfile"
+        android:icon="@android:drawable/star_big_off"
+        android:orderInCategory="100"
+        android:title="Profile">
+
+
+    </item>
+    <item
+        android:id="@+id/miPayment"
+        android:icon="@android:drawable/star_big_off"
+        android:orderInCategory="100"
+        android:title="Payment">
+
+
+    </item>
+    <item
+        android:id="@+id/miHistory"
+        android:icon="@android:drawable/star_big_off"
+        android:orderInCategory="101"
+        android:title="History">
+
+
+    </item>
+    <item
+        android:id="@+id/action_settings"
+        android:orderInCategory="102"
+        android:title="@string/action_settings"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/miCompose"
+        android:icon="@android:drawable/star_big_on"
+        android:title="Compose"
+        app:showAsAction="always"></item>
+</menu>
