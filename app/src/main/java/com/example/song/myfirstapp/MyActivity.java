@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.content.Intent;
+import android.widget.Button;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -79,6 +80,11 @@ public class MyActivity extends AppCompatActivity {
     }
 
 
+    public void buttonViewClick(View v){
+        Button button = (Button) v;
+        Intent intent1 = new Intent(this,RouteView.class);
+        this.startActivity(intent1);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
