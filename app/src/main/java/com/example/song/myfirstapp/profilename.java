@@ -92,22 +92,15 @@ public class profilename extends AppCompatActivity {
     }
 
 
-    //@Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        // Handle action bar item clicks here. The action bar will
-//        // automatically handle clicks on the Home/Up button, so long
-//        // as you specify a parent activity in AndroidManifest.xml.
-//        int id = item.getItemId();
-//        if(id==R.id.edit_profile){
-//            return true;
-//        }
-//        //noinspection SimplifiableIfStatement
-////        if (id == R.id.action_settings) {
-////            return true;
-////        }
-//
-//        return super.onOptionsItemSelected(item);
-//    }
+
+    public void gotoEditProfile(View v) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        Intent intent2 = new Intent(this, Change_Profile.class);
+        startActivity(intent2);
+    }
+
 }
 
 

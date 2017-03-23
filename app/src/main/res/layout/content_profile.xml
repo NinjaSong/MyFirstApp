@@ -87,6 +87,18 @@
         </RelativeLayout>
 
 
+        <Button
+            android:id="@+id/edit_profile"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center"
+            android:background="@color/colorPrimary"
+            android:gravity="center"
+            android:onClick="gotoEditProfile"
+            android:text="Edit Profile" />
+
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -135,14 +147,6 @@
                 android:padding="20dp"
                 android:text="Hobbies and Interests: Travelling, Food, Hiking" />
 
-            <Button
-                android:id="@+id/button2"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:background="@color/colorPrimary"
-                android:gravity="center"
-                android:text="Edit Profile" />
         </LinearLayout>
 
         <!--<android.support.design.widget.TextInputLayout-->
