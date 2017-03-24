@@ -19,6 +19,35 @@
             <!--app:popupTheme="@style/AppTheme.PopupOverlay" />-->
 
     <!--</android.support.design.widget.AppBarLayout>-->
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="?android:attr/windowBackground"
+        app:menu="@menu/navigation" />
+
+    <ViewFlipper xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/vf"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="64dp">
+
+        <include
+            android:id="@+id/_home"
+            layout="@layout/content_profile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <include
+            android:id="@+id/_agent"
+            layout="@layout/content_profile_agent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </ViewFlipper>
+
+
+
     <FrameLayout
         android:id="@+id/content"
         android:layout_width="match_parent"
