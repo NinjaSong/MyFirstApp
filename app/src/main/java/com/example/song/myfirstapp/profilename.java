@@ -66,7 +66,7 @@ public class profilename extends AppCompatActivity {
                     vf.setDisplayedChild(1);
                     return true;
                 case R.id.navigation_travler:
-
+                    vf.setDisplayedChild(2);
                     return true;
             }
             return false;
@@ -91,7 +91,11 @@ public class profilename extends AppCompatActivity {
         this.startActivity(intent1);
     }
 
-
+    public void buttonTravlerViewClick(View v){
+        Button button = (Button) v;
+        Intent intent1 = new Intent(this,RouteView.class);
+        this.startActivity(intent1);
+    }
 
     public void gotoEditProfile(View v) {
         // Handle action bar item clicks here. The action bar will
