@@ -57,7 +57,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="76dp"
-                android:text="UserName"
+                android:text="@string/profile_username"
                 android:textColor="#fff"
                 android:textSize="24sp"
                 android:textStyle="bold" />
@@ -125,6 +125,7 @@
 
 
             <TextView
+                android:id="@+id/profile_location"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
@@ -136,6 +137,7 @@
 
 
             <TextView
+                android:id="@+id/profile_hobbies"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"

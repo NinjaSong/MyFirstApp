@@ -8,19 +8,25 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Button;
-import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.widget.ViewFlipper;
-import android.view.MenuItem;
-import android.widget.Button;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 
 public class profilename extends AppCompatActivity {
     private TextView mTextMessage;
+    private String mUserId;
+    private DatabaseReference mDatabase;
+    private FirebaseAuth mFirebaseAuth;
+    private FirebaseUser mFirebaseUser;
+
 
 
 
@@ -29,20 +35,86 @@ public class profilename extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profilename);
 
+
         //mTextMessage = (TextView) findViewById(R.id.message);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         ViewFlipper vf = (ViewFlipper)findViewById(R.id.vf);
         vf.setDisplayedChild(0);
-//        Button button = (Button)findViewById(R.id.edit_profile);
-//        button.setOnClickListener(new View.OnClickListener(){
-//            public void onClick(View v){
-//
-//            }
-//        });
 
-//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
+
+        // Initialize Firebase Auth and Database Reference
+        mFirebaseAuth = FirebaseAuth.getInstance();
+        mFirebaseUser = mFirebaseAuth.getCurrentUser();
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+
+        if (mFirebaseUser == null) {
+            // Not logged in, launch the Log In activity
+            Intent intentlg=new Intent(this,LogInActivity.class);
+            this.startActivity(intentlg);
+        } else {
+            mUserId = mFirebaseUser.getUid();
+//            TextView profileName = (TextView) findViewById(R.id.user_profile_name);
+            final TextView profilePhone = (TextView) findViewById(R.id.phone);
+            final TextView profileLocation = (TextView) findViewById(R.id.profile_location);
+            final TextView profileHobbies = (TextView) findViewById(R.id.profile_hobbies);
+
+//            profileName.setText("Happy");
+
+
+//            mDatabase.child("users").child(mUserId).child("Email").addValueEventListener(new ValueEventListener() {
+//                @Override
+//                public void onDataChange(DataSnapshot snapshot) {
+//                    String npName=snapshot.getValue().toString();
+//                    profileName.setText(npName);
+//
+//
+//
+//
+//
+//
+//
+//                    //System.out.println(snapshot.getValue());  //prints "Do you have data? You'll love Firebase."
+//                }
+//
+//                @Override
+//                public void onCancelled(DatabaseError databaseError) {
+//
+//                }
+//
+//            });
+//
+//
+
+
+
+//            mDatabase.child("users").child(mUserId).addValueEventListener(new ValueEventListener() {
+//                @Override
+//                public void onDataChange(DataSnapshot snapshot) {
+//
+//                    String npName=newPost.get("Email").toString();
+//                    String npHobby=newPost.get("Hobby").toString();
+//                    String npLocation=newPost.get("Location").toString();
+//
+//                    String npTel=newPost.get("Telephone").toString();
+//
+//                    profilePhone.setText(npTel);
+//                    profileLocation.setText("Location:"+npLocation);
+//                    profileHobbies.setText("Hobbies:"+npHobby);
+//                    System.out.println(snapshot.getValue());  //prints "Do you have data? You'll love Firebase."
+//                }
+//
+//                @Override
+//                public void onCancelled(DatabaseError databaseError) {
+//
+//                }
+//
+//            });
+
+
+
+        }
+
     }
 
     @Override
@@ -50,6 +122,7 @@ public class profilename extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_profile, menu);
         return true;
     }
+
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -73,29 +146,31 @@ public class profilename extends AppCompatActivity {
         }
 
     };
-    public void buttonEditprofileClick(View v){
-        Button button = (Button) v;
-        Intent intent1 = new Intent(this,RouteView.class);
-        this.startActivity(intent1);
-    }
 
-    public void buttonAddRouteClick(View v){
-        Button button = (Button) v;
-        Intent intent1 = new Intent(this,RouteView.class);
-        this.startActivity(intent1);
-    }
 
-    public void buttonEditRouteClick(View v){
-        Button button = (Button) v;
-        Intent intent1 = new Intent(this,RouteView.class);
-        this.startActivity(intent1);
-    }
+
+
+//    public void buttonEditprofileClick(View v){
+//        Intent intent1 = new Intent(this,RouteView.class);
+//        this.startActivity(intent1);
+//    }
+//
+//    public void buttonAddRouteClick(View v){
+//        Intent intent1 = new Intent(this,RouteView.class);
+//        this.startActivity(intent1);
+//    }
+//
+//    public void buttonEditRouteClick(View v){
+//        Intent intent1 = new Intent(this,RouteView.class);
+//        this.startActivity(intent1);
+//    }
 
     public void buttonTravlerViewClick(View v){
-        Button button = (Button) v;
         Intent intent1 = new Intent(this,RouteView.class);
         this.startActivity(intent1);
     }
+
+
 
     public void gotoEditProfile(View v) {
         // Handle action bar item clicks here. The action bar will

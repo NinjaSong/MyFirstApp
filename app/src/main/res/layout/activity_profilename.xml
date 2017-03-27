@@ -44,9 +44,8 @@
             layout="@layout/content_profile_agent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
-
         <include
-            android:id="@+id/_travler"
+            android:id="@+id/_traveler"
             layout="@layout/content_profile_travler"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
