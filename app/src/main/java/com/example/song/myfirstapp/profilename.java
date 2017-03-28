@@ -150,10 +150,10 @@ public class profilename extends AppCompatActivity {
 
 
 
-//    public void buttonEditprofileClick(View v){
-//        Intent intent1 = new Intent(this,RouteView.class);
-//        this.startActivity(intent1);
-//    }
+    public void buttonAddClick(){
+        ViewFlipper vf = (ViewFlipper)findViewById(R.id.vf);
+        vf.setDisplayedChild(3);
+    }
 //
 //    public void buttonAddRouteClick(View v){
 //        Intent intent1 = new Intent(this,RouteView.class);

@@ -49,6 +49,11 @@
             layout="@layout/content_profile_travler"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
+        <include
+            android:id="@+id/_agentadd"
+            layout="@layout/content_add_route"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
     </ViewFlipper>
 
 
