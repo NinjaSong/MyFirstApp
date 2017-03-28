@@ -132,15 +132,16 @@
                     android:layout_marginTop="0dp"
                     android:background="@color/colorPrimaryDark"
                     android:elevation="0dp"
+                    android:onClick="buttonAddClick"
                     android:text="Add New" />
 
                 <LinearLayout
-                    android:id="@+id/RouteContainer"
+                    android:id="@+id/RouteContainer2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
                     <TextView
-                        android:id="@+id/textView2"
+                        android:id="@+id/textView3"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginBottom="10dp"
@@ -158,7 +159,7 @@
                         app:layout_constraintTop_toBottomOf="@+id/map" />
 
                     <Button
-                        android:id="@+id/ViewButton"
+                        android:id="@+id/ViewButton2"
                         android:layout_width="wrap_content"
                         android:layout_height="100dp"
                         android:layout_marginBottom="10dp"

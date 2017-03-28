@@ -7,7 +7,6 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.TextView;
-import android.widget.Button;
 import android.view.View;
 import android.view.Menu;
 import android.widget.ViewFlipper;
@@ -23,6 +22,7 @@ import com.google.firebase.database.ValueEventListener;
 public class profilename extends AppCompatActivity {
     private TextView mTextMessage;
     private String mUserId;
+    private String mUserEmail;
     private DatabaseReference mDatabase;
     private FirebaseAuth mFirebaseAuth;
     private FirebaseUser mFirebaseUser;
@@ -54,62 +54,42 @@ public class profilename extends AppCompatActivity {
             this.startActivity(intentlg);
         } else {
             mUserId = mFirebaseUser.getUid();
-//            TextView profileName = (TextView) findViewById(R.id.user_profile_name);
-            final TextView profilePhone = (TextView) findViewById(R.id.phone);
-            final TextView profileLocation = (TextView) findViewById(R.id.profile_location);
-            final TextView profileHobbies = (TextView) findViewById(R.id.profile_hobbies);
+            mUserEmail=mFirebaseUser.getEmail();
+            final TextView profileName = (TextView) findViewById(R.id.vf).findViewById(R.id.user_profile_name);
+            final TextView profilePhone = (TextView) findViewById(R.id.vf).findViewById(R.id.phone);
+            final TextView profileLocation = (TextView) findViewById(R.id.vf).findViewById(R.id.profile_location);
+            final TextView profileHobbies = (TextView) findViewById(R.id.vf).findViewById(R.id.profile_hobbies);
+            final TextView profileEmail = (TextView) findViewById(R.id.vf).findViewById(R.id.user_profile_email);
+            final TextView name = (TextView) findViewById(R.id.vf).findViewById(R.id.name);
+
+
 
 //            profileName.setText("Happy");
 
 
-//            mDatabase.child("users").child(mUserId).child("Email").addValueEventListener(new ValueEventListener() {
-//                @Override
-//                public void onDataChange(DataSnapshot snapshot) {
-//                    String npName=snapshot.getValue().toString();
-//                    profileName.setText(npName);
-//
-//
-//
-//
-//
-//
-//
-//                    //System.out.println(snapshot.getValue());  //prints "Do you have data? You'll love Firebase."
-//                }
-//
-//                @Override
-//                public void onCancelled(DatabaseError databaseError) {
-//
-//                }
-//
-//            });
-//
-//
+            mDatabase.child("users").child(mUserId).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot snapshot) {
+                    String npName=snapshot.child("NickName").getValue().toString();
+                    profileName.setText(npName);
+                    name.setText("Name:"+npName);
+                    String npPhone=snapshot.child("Telephone").getValue().toString();
+                    profilePhone.setText("Telephone:"+npPhone);
+                    String npLocation=snapshot.child("Location").getValue().toString();
+                    profileLocation.setText("Location:"+npLocation);
+                    String npHobby=snapshot.child("Hobby").getValue().toString();
+                    profileHobbies.setText("Hobbies:"+npHobby);
+                    profileEmail.setText(mUserEmail);
 
+                }
 
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
 
-//            mDatabase.child("users").child(mUserId).addValueEventListener(new ValueEventListener() {
-//                @Override
-//                public void onDataChange(DataSnapshot snapshot) {
-//
-//                    String npName=newPost.get("Email").toString();
-//                    String npHobby=newPost.get("Hobby").toString();
-//                    String npLocation=newPost.get("Location").toString();
-//
-//                    String npTel=newPost.get("Telephone").toString();
-//
-//                    profilePhone.setText(npTel);
-//                    profileLocation.setText("Location:"+npLocation);
-//                    profileHobbies.setText("Hobbies:"+npHobby);
-//                    System.out.println(snapshot.getValue());  //prints "Do you have data? You'll love Firebase."
-//                }
-//
-//                @Override
-//                public void onCancelled(DatabaseError databaseError) {
-//
-//                }
-//
-//            });
+                }
+
+            });
+
 
 
 
@@ -150,7 +130,7 @@ public class profilename extends AppCompatActivity {
 
 
 
-    public void buttonAddClick(){
+    public void buttonAddClick(View v){
         ViewFlipper vf = (ViewFlipper)findViewById(R.id.vf);
         vf.setDisplayedChild(3);
     }

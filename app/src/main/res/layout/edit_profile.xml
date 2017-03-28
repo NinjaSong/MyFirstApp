@@ -36,27 +36,27 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="19dp"
+        android:layout_marginLeft="19dp"
         android:layout_marginTop="8dp"
-        android:text="Email"
+        android:text="Nick Name"
         android:textColor="@android:color/holo_blue_dark"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edittel"
-        app:layout_constraintVertical_bias="0.013"
-        android:layout_marginLeft="19dp"
-        app:layout_constraintLeft_toLeftOf="parent" />
+        app:layout_constraintVertical_bias="0.013" />
 
     <EditText
-        android:id="@+id/editemail"
+        android:id="@+id/editnickname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
         android:layout_marginTop="21dp"
         android:ems="10"
-        android:hint="New Email"
+        android:hint="New Nick Name"
         android:inputType="textPersonName"
-        app:layout_constraintTop_toBottomOf="@+id/textView4"
-        android:layout_marginLeft="16dp"
-        app:layout_constraintLeft_toLeftOf="parent" />
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
     <TextView
         android:id="@+id/textView5"
@@ -66,7 +66,7 @@
         android:text="Location"
         android:textColor="@android:color/holo_blue_dark"
         android:textSize="20sp"
-        app:layout_constraintTop_toBottomOf="@+id/editemail"
+        app:layout_constraintTop_toBottomOf="@+id/editnickname"
         android:layout_marginLeft="16dp"
         app:layout_constraintLeft_toLeftOf="parent" />
 

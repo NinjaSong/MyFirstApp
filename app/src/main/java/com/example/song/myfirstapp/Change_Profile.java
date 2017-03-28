@@ -9,7 +9,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -21,7 +20,7 @@ import com.google.firebase.database.FirebaseDatabase;
 public class Change_Profile extends AppCompatActivity {
     private Button sbchangesb;
     private EditText mTel;
-    private EditText mEmail;
+    private EditText mNickname;
     private EditText mLocation;
     private EditText mHobby;
     private EditText mPassword;
@@ -61,7 +60,7 @@ public class Change_Profile extends AppCompatActivity {
             DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
             mUserId = mFirebaseUser.getUid();
             mTel = (EditText) findViewById(R.id.edittel);
-            mEmail = (EditText) findViewById(R.id.editemail);
+            mNickname = (EditText) findViewById(R.id.editnickname);
             mLocation = (EditText) findViewById(R.id.editlocation);
             mHobby = (EditText) findViewById(R.id.edithobby);
             mPassword = (EditText) findViewById(R.id.password);
@@ -69,7 +68,7 @@ public class Change_Profile extends AppCompatActivity {
 
             String vpassword = mPassword.getText().toString();
             String vTel = mTel.getText().toString();
-            String vEmail = mEmail.getText().toString();
+            String vNickname = mNickname.getText().toString();
             String vLocation = mLocation.getText().toString();
             String vHobby = mHobby.getText().toString();
 
@@ -78,8 +77,8 @@ public class Change_Profile extends AppCompatActivity {
 
             DatabaseReference childTel = childRef.child("Telephone");
             childTel.setValue(vTel);
-            DatabaseReference childEmail = childRef.child("Email");
-            childEmail.setValue(vEmail);
+            DatabaseReference childEmail = childRef.child("NickName");
+            childEmail.setValue(vNickname);
             DatabaseReference childLocation = childRef.child("Location");
             childLocation.setValue(vLocation);
             DatabaseReference childHobby = childRef.child("Hobby");
