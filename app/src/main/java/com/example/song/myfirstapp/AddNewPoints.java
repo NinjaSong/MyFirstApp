@@ -37,7 +37,6 @@ package com.example.song.myfirstapp;
 
 public class AddNewPoints extends AppCompatActivity implements OnMapReadyCallback {
     GoogleMap mMap;
-    Marker marker;
     private EditText routeName;
     private EditText routedescription;
     private EditText markeraddress;
@@ -96,8 +95,6 @@ public class AddNewPoints extends AppCompatActivity implements OnMapReadyCallbac
         LatLng ll = new LatLng(add.getLatitude(), add.getLongitude());
         CameraUpdate update = CameraUpdateFactory.newLatLngZoom(ll, 15);
         mMap.moveCamera(update);
-        if(marker != null)
-            marker.remove();
         MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.title("Point "+mknum2+": "+location)
                      .position(new LatLng(add.getLatitude(), add.getLongitude()));
