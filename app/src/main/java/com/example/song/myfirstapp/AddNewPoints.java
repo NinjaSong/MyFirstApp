@@ -72,14 +72,7 @@ public class AddNewPoints extends AppCompatActivity implements OnMapReadyCallbac
                     catch (IOException e) {
                         return;
                     }
-                    Address address = list.get(0);
-                    if (marker != null) {
-                        marker.remove();
-                    }
 
-                    MarkerOptions options = new MarkerOptions().title(address.getLocality()).position(new LatLng(latLng.latitude, latLng.longitude));
-
-                    marker = mMap.addMarker(options);
                 }
             });
         }
@@ -87,17 +80,6 @@ public class AddNewPoints extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     public void onMapReady(final GoogleMap map) {
         this.mMap = map;
-    }
-
-    private void drawMarker(LatLng point){
-        // Creating an instance of MarkerOptions
-        MarkerOptions markerOptions = new MarkerOptions();
-
-        // Setting latitude and longitude for the marker
-        markerOptions.position(point);
-
-        // Adding marker on the Google Map
-        mMap.addMarker(markerOptions);
     }
 
 
