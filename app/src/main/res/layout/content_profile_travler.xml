@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -24,6 +25,7 @@
             android:adjustViewBounds="false"
             android:elevation="5dp"
             android:padding="20dp"
+            android:background="@drawable/andy"
             android:scaleType="centerCrop" />
 
         <RelativeLayout
@@ -31,7 +33,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/header_cover_image"
-            android:background="@color/colorPrimary"
+            android:background="@android:color/holo_blue_dark"
             android:elevation="4dp"
             android:paddingBottom="24dp">
 
@@ -59,7 +61,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="76dp"
-                android:text="Travler - UserName"
+                android:text="Travler - Andy"
                 android:textColor="#fff"
                 android:textSize="24sp"
                 android:textStyle="bold" />
@@ -71,7 +73,7 @@
                 android:layout_below="@+id/user_profile_name"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="12dp"
-                android:text="travelmash@gmail.com"
+                android:text="andy@gmail.com"
                 android:textColor="#fff"
                 android:textSize="14sp" />
 
@@ -104,12 +106,12 @@
                 android:orientation="vertical">
 
                 <LinearLayout
-                    android:id="@+id/RouteContainer"
+                    android:id="@+id/RouteContainer5"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
                     <TextView
-                        android:id="@+id/textView2"
+                        android:id="@+id/textView5"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginBottom="10dp"
@@ -120,31 +122,33 @@
                         android:layout_marginTop="10dp"
                         android:layout_weight="1"
                         android:background="@color/common_google_signin_btn_text_dark_default"
-                        android:text="Beautiful beach Route\nDiscriprtion: blablabla\n\tblablabla\n\tblablabla\nAgent: Sara"
-                        android:textColor="@android:color/holo_green_dark"
+                        android:text="Florida Beautiful beach Route\nDescription:Include most beautiful beaches in florida and the recommended restaurant.\nAgent: Sara"
+                        android:textColor="@android:color/holo_blue_light"
+                        android:textSize="15sp"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintRight_toRightOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/map" />
 
                     <Button
-                        android:id="@+id/ViewButton"
+                        android:id="@+id/ViewButton5"
                         android:layout_width="wrap_content"
                         android:layout_height="100dp"
                         android:layout_marginBottom="10dp"
                         android:layout_marginRight="30dp"
                         android:layout_marginTop="10dp"
-                        android:background="@color/colorlightgreen"
-                        android:onClick="buttonTravlerViewClick"
-                        android:text="View" />
+                        android:background="@android:color/holo_blue_light"
+                        android:onClick="buttonTravelerViewClick"
+                        android:text="View"
+                        android:textColor="@android:color/white" />
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/RouteContainer"
+                    android:id="@+id/RouteContainer6"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
                     <TextView
-                        android:id="@+id/textView2"
+                        android:id="@+id/textView6"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginBottom="10dp"
@@ -155,22 +159,24 @@
                         android:layout_marginTop="10dp"
                         android:layout_weight="1"
                         android:background="@color/common_google_signin_btn_text_dark_default"
-                        android:text="Beautiful beach Route\nDiscriprtion: blablabla\n\tblablabla\n\tblablabla\nAgent: Sara"
-                        android:textColor="@android:color/holo_green_dark"
+                        android:text="National Park Route\nDescription:Include the Yellowstone national park and the Bryce national park.\nAgent: Tim"
+                        android:textColor="@android:color/holo_blue_light"
+                        android:textSize="15sp"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintRight_toRightOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/map" />
 
                     <Button
-                        android:id="@+id/ViewButton"
+                        android:id="@+id/ViewButton6"
                         android:layout_width="wrap_content"
                         android:layout_height="100dp"
                         android:layout_marginBottom="10dp"
                         android:layout_marginRight="30dp"
                         android:layout_marginTop="10dp"
-                        android:background="@color/colorlightgreen"
+                        android:background="@android:color/holo_blue_light"
                         android:onClick="buttonTravlerViewClick"
-                        android:text="View" />
+                        android:text="View"
+                        android:textColor="@android:color/white" />
                 </LinearLayout>
 
             </LinearLayout>

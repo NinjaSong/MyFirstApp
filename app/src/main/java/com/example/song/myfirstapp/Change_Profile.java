@@ -66,7 +66,7 @@ public class Change_Profile extends AppCompatActivity {
             mPassword = (EditText) findViewById(R.id.password);
 
 
-            String vpassword = mPassword.getText().toString();
+//            String vpassword = mPassword.getText().toString();
             String vTel = mTel.getText().toString();
             String vNickname = mNickname.getText().toString();
             String vLocation = mLocation.getText().toString();
@@ -83,8 +83,8 @@ public class Change_Profile extends AppCompatActivity {
             childLocation.setValue(vLocation);
             DatabaseReference childHobby = childRef.child("Hobby");
             childHobby.setValue(vHobby);
-            DatabaseReference childPassword = childRef.child("Password");
-            childPassword.setValue(vpassword);
+//            DatabaseReference childPassword = childRef.child("Password");
+//            childPassword.setValue(vpassword);
 
             updatePassword();
 

@@ -14,37 +14,58 @@
         tools:layout_editor_absoluteY="8dp"
         android:weightSum="1">
 
-        <TextView
-            android:id="@+id/RouteName"
-            android:layout_width="match_parent"
-            android:layout_height="18dp"
-            android:layout_marginTop="60dp"
-            android:gravity="center"
-            android:text="Route Name :"
-            android:textSize="18sp"
-            app:layout_constraintHorizontal_bias="0.501"
-            app:layout_constraintLeft_toLeftOf="@+id/parent"
-            app:layout_constraintRight_toRightOf="@+id/parent"
-            app:layout_constraintTop_toTopOf="@+id/parent" />
+        <EditText
+            android:id="@+id/Routename"
+            android:layout_width="197dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginEnd="50dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="50dp"
+            android:ems="10"
+            android:hint="Enter the Route Name"
+            android:inputType="textPersonName" />
 
         <EditText
-            android:id="@+id/editText"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:id="@+id/route_descript1"
+            android:layout_width="320dp"
+            android:layout_height="32dp"
             android:layout_marginEnd="30dp"
-            android:layout_marginStart="30dp"
+            android:layout_marginStart="35dp"
+            android:layout_marginLeft="35dp"
+            android:layout_marginRight="35dp"
             android:layout_marginTop="10dp"
             android:background="@color/colorlightgreen"
             android:ems="10"
+            android:hint="Route Description"
             android:inputType="textMultiLine"
-            android:text="Describe your route in a short story..."
+            android:textColor="@color/common_google_signin_btn_text_dark_default"
+            android:textSize="18sp" />
+
+        <EditText
+            android:id="@+id/routetag1"
+            android:layout_width="320dp"
+            android:layout_height="34dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginStart="35dp"
+            android:layout_marginLeft="35dp"
+            android:layout_marginRight="35dp"
+            android:layout_marginTop="15dp"
+            android:background="@color/colorlightgreen"
+            android:ems="10"
+            android:hint="Type in the Route Tag"
+            android:inputType="textMultiLine"
             android:textSize="18sp" />
 
         <fragment
             android:id="@+id/map2"
             android:name="com.google.android.gms.maps.SupportMapFragment"
-            android:layout_width="match_parent"
-            android:layout_height="220dp"
+            android:layout_width="302dp"
+            android:layout_height="167dp"
             android:layout_gravity="center"
             android:layout_marginEnd="28dp"
             android:layout_marginLeft="28dp"
@@ -68,12 +89,16 @@
                 android:layout_height="30dp"
                 android:layout_marginBottom="10dp"
                 android:layout_marginEnd="30dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
                 android:layout_marginStart="40dp"
                 android:layout_marginTop="10dp"
                 android:layout_weight="1"
-                android:background="@color/colorAccent"
+                android:background="@android:color/holo_blue_light"
                 android:gravity="center"
-                android:text="Add new"
+                android:onClick="finishRoute"
+                android:text="Finish Route"
+                android:textColor="@color/common_google_signin_btn_text_dark_pressed"
                 android:textSize="18sp" />
 
         </LinearLayout>
@@ -82,58 +107,69 @@
             android:id="@+id/RouteView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:weightSum="1">
+
+
 
             <EditText
-                android:id="@+id/editText2"
+                android:id="@+id/markernumber1"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_marginBottom="5dp"
                 android:layout_marginEnd="30dp"
-                android:layout_marginStart="30dp"
+                android:layout_marginRight="35dp"
+                android:layout_marginStart="35dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="35dp"
+                android:background="@color/colorlightgreen"
+                android:ems="10"
+                android:hint="Type in the point number"
+                android:inputType="textMultiLine"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/markeraddress1"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginStart="35dp"
+                android:layout_marginLeft="35dp"
+                android:layout_marginRight="30dp"
                 android:layout_marginTop="5dp"
                 android:background="@color/colorlightgreen"
                 android:ems="10"
+                android:hint="Type in the address"
                 android:inputType="textMultiLine"
-                android:text="Address Type in...."
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/pointdescript1"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginStart="35dp"
+                android:layout_marginLeft="35dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginTop="5dp"
+                android:background="@color/colorlightgreen"
+                android:ems="10"
+                android:hint="Type in the description of the point"
+                android:inputType="textMultiLine"
                 android:textSize="18sp" />
 
             <Button
                 android:id="@+id/button"
-                android:layout_width="40dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:background="@color/colorAccent"
+                android:background="@android:color/holo_blue_light"
                 android:gravity="center"
-                android:text="Go!"
-                android:textSize="18sp" />
-
-            <EditText
-                android:id="@+id/editText3"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginBottom="5dp"
-                android:layout_marginEnd="30dp"
-                android:layout_marginStart="30dp"
-                android:layout_marginTop="5dp"
-                android:background="@color/colorlightgreen"
-                android:ems="10"
-                android:inputType="textMultiLine"
-                android:text="Add Describe..."
-                android:textSize="18sp" />
-
-            <EditText
-                android:id="@+id/editText4"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginBottom="5dp"
-                android:layout_marginEnd="30dp"
-                android:layout_marginStart="30dp"
-                android:layout_marginTop="5dp"
-                android:background="@color/colorlightgreen"
-                android:ems="10"
-                android:inputType="textMultiLine"
-                android:text="Add Tag..."
+                android:onClick="findLocation"
+                android:text="Add New Point"
+                android:textColor="@android:color/white"
                 android:textSize="18sp" />
 
         </LinearLayout>

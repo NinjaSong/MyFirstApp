@@ -64,9 +64,6 @@ public class profilename extends AppCompatActivity {
 
 
 
-//            profileName.setText("Happy");
-
-
             mDatabase.child("users").child(mUserId).addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot snapshot) {
@@ -130,25 +127,18 @@ public class profilename extends AppCompatActivity {
 
 
 
-    public void buttonAddClick(View v){
-        ViewFlipper vf = (ViewFlipper)findViewById(R.id.vf);
-        vf.setDisplayedChild(3);
-    }
-//
-//    public void buttonAddRouteClick(View v){
-//        Intent intent1 = new Intent(this,RouteView.class);
-//        this.startActivity(intent1);
-//    }
-//
-//    public void buttonEditRouteClick(View v){
-//        Intent intent1 = new Intent(this,RouteView.class);
-//        this.startActivity(intent1);
-//    }
 
-    public void buttonTravlerViewClick(View v){
-        Intent intent1 = new Intent(this,RouteView.class);
-        this.startActivity(intent1);
+
+   public void buttonTravelerViewClick(View v){
+       Intent intent1=new Intent(this,RouteView.class);
+       this.startActivity(intent1);
+   }
+
+    public void Addroutes(View v){
+        Intent intentb=new Intent(this,AddNewPoints.class);
+        startActivity(intentb);
     }
+
 
 
 

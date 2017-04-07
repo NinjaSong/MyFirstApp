@@ -13,13 +13,14 @@
         tools:layout_editor_absoluteY="8dp"
         android:weightSum="1">
 
-        <TextView
+        <EditText
             android:id="@+id/RouteName"
             android:layout_width="match_parent"
-            android:layout_height="18dp"
-            android:layout_marginTop="60dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="30dp"
             android:gravity="center"
-            android:text="CityName"
+            android:hint="Please enter the target City"
+            android:textSize="10dp"
             app:layout_constraintHorizontal_bias="0.501"
             app:layout_constraintLeft_toLeftOf="@+id/parent"
             app:layout_constraintRight_toRightOf="@+id/parent"
@@ -43,12 +44,12 @@
             tools:layout="@layout/activity_maps" />
 
         <LinearLayout
-            android:id="@+id/RouteContainer"
+            android:id="@+id/RouteContainer1"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/textView2"
+                android:id="@+id/textView1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginBottom="10dp"
@@ -59,26 +60,27 @@
                 android:layout_marginTop="10dp"
                 android:layout_weight="1"
                 android:background="@color/common_google_signin_btn_text_dark_default"
-                android:text="Beautiful beach Route\nDiscriprtion: blablabla\n\tblablabla\n\tblablabla\nAgent: Sara"
-                android:textColor="@android:color/holo_green_dark"
+                android:text="Beautiful Florida Beach Route\nDiscriprtion: Include the most beutiful beaches in Florida\nAgent: Sara"
+                android:textColor="@android:color/holo_blue_dark"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/map" />
 
             <Button
-                android:id="@+id/ViewButton"
+                android:id="@+id/ViewButton1"
                 android:layout_width="wrap_content"
-                android:layout_height="100dp"
+                android:layout_height="65dp"
                 android:layout_marginBottom="10dp"
                 android:layout_marginRight="30dp"
                 android:layout_marginTop="10dp"
-                android:background="@color/colorlightgreen"
+                android:background="@android:color/holo_blue_light"
                 android:onClick="buttonViewClick"
-                android:text="View" />
+                android:text="View"
+                android:textColor="@android:color/white" />
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/RouteContainer"
+            android:id="@+id/RouteContainer2"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -94,31 +96,33 @@
                 android:layout_marginTop="10dp"
                 android:layout_weight="1"
                 android:background="@color/common_google_signin_btn_text_dark_default"
-                android:text="Beautiful beach Route\nDiscriprtion: blablabla\n\tblablabla\n\tblablabla\nAgent: Sara"
-                android:textColor="@android:color/holo_green_dark"
+                android:text=" Florida Theme Parks Route\nDiscriprtion: Include the most popular Theme parks in Florida\nAgent: Andy"
+                android:textColor="@android:color/holo_blue_light"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/map" />
 
             <Button
-                android:id="@+id/ViewButton"
+                android:id="@+id/ViewButton2"
                 android:layout_width="wrap_content"
-                android:layout_height="100dp"
+                android:layout_height="65dp"
                 android:layout_marginBottom="10dp"
                 android:layout_marginRight="30dp"
                 android:layout_marginTop="10dp"
-                android:background="@color/colorlightgreen"
+                android:background="@android:color/holo_blue_light"
                 android:onClick="buttonViewClick"
-                android:text="View" />
+                android:text="View"
+                android:textColor="@android:color/white"
+                android:textColorHighlight="@android:color/white" />
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/RouteContainer"
+            android:id="@+id/RouteContainer3"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/textView2"
+                android:id="@+id/textView3"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginBottom="10dp"
@@ -129,58 +133,31 @@
                 android:layout_marginTop="10dp"
                 android:layout_weight="1"
                 android:background="@color/common_google_signin_btn_text_dark_default"
-                android:text="Beautiful beach Route\nDiscriprtion: blablabla\n\tblablabla\n\tblablabla\nAgent: Sara"
-                android:textColor="@android:color/holo_green_dark"
+                android:text="Florida Seafood Route\nDiscriprtion: Include the famous beaches as well as the restaurants along the beaches in Florida\nAgent: Sam"
+                android:textColor="@android:color/holo_blue_light"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/map" />
 
             <Button
-                android:id="@+id/ViewButton"
+                android:id="@+id/ViewButton3"
                 android:layout_width="wrap_content"
-                android:layout_height="100dp"
+                android:layout_height="70dp"
                 android:layout_marginBottom="10dp"
                 android:layout_marginRight="30dp"
                 android:layout_marginTop="10dp"
-                android:background="@color/colorlightgreen"
+                android:background="@android:color/holo_blue_light"
                 android:onClick="buttonViewClick"
-                android:text="View" />
+                android:text="View"
+                android:textColor="@android:color/white" />
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/RouteContainer"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        <!--<LinearLayout-->
+            <!--android:id="@+id/RouteContainer4"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent">-->
 
-            <TextView
-                android:id="@+id/textView2"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="10dp"
-                android:layout_marginEnd="0dp"
-                android:layout_marginLeft="0dp"
-                android:layout_marginRight="0dp"
-                android:layout_marginStart="30dp"
-                android:layout_marginTop="10dp"
-                android:layout_weight="1"
-                android:background="@color/common_google_signin_btn_text_dark_default"
-                android:text="Beautiful beach Route\nDiscriprtion: blablabla\n\tblablabla\n\tblablabla\nAgent: Sara"
-                android:textColor="@android:color/holo_green_dark"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/map" />
-
-            <Button
-                android:id="@+id/ViewButton"
-                android:layout_width="wrap_content"
-                android:layout_height="100dp"
-                android:layout_marginBottom="10dp"
-                android:layout_marginRight="30dp"
-                android:layout_marginTop="10dp"
-                android:background="@color/colorlightgreen"
-                android:onClick="buttonViewClick"
-                android:text="View" />
-        </LinearLayout>
+        <!--</LinearLayout>-->
 
     </LinearLayout>
 </ScrollView>
