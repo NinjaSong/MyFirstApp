@@ -172,7 +172,7 @@
                         android:layout_marginRight="30dp"
                         android:layout_marginTop="10dp"
                         android:background="@android:color/holo_blue_bright"
-                        android:onClick="buttonViewClick"
+                        android:onClick="buttonAgentEditClick"
                         android:text="Edit"
                         android:textColor="@android:color/white" />
                 </LinearLayout>
@@ -210,7 +210,7 @@
                         android:layout_marginRight="30dp"
                         android:layout_marginTop="10dp"
                         android:background="@android:color/holo_blue_bright"
-                        android:onClick="buttonViewClick"
+                        android:onClick="buttonAgentEditClick"
                         android:text="Edit"
                         android:textColor="@android:color/white" />
                 </LinearLayout>

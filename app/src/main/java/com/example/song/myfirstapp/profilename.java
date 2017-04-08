@@ -130,7 +130,7 @@ public class profilename extends AppCompatActivity {
 
 
    public void buttonTravelerViewClick(View v){
-       Intent intent1=new Intent(this,RouteView.class);
+       Intent intent1=new Intent(this,TravelerRouteView.class);
        this.startActivity(intent1);
    }
 
@@ -139,6 +139,10 @@ public class profilename extends AppCompatActivity {
         startActivity(intentb);
     }
 
+    public void buttonAgentEditClick(View v){
+        Intent intent3=new Intent(this,EditRoute.class);
+        this.startActivity(intent3);
+    }
 
 
 

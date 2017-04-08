@@ -109,4 +109,7 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
+    <string name="title_activity_traveler_route_view">TravelerRouteView</string>
+    <string name="title_activity_edit_route">EditRoute</string>
+    <string name="title_activity_edit_point">EditPoint</string>
 </resources>

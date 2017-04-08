@@ -13,18 +13,13 @@
         tools:layout_editor_absoluteY="8dp"
         android:weightSum="1">
 
-        <EditText
-            android:id="@+id/RouteName"
+        <TextView
+            android:id="@+id/editText"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_marginTop="30dp"
-            android:gravity="center"
-            android:hint="Please enter the target City"
-            android:textSize="10dp"
-            app:layout_constraintHorizontal_bias="0.501"
-            app:layout_constraintLeft_toLeftOf="@+id/parent"
-            app:layout_constraintRight_toRightOf="@+id/parent"
-            app:layout_constraintTop_toTopOf="@+id/parent" />
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="Name" />
 
         <fragment
             android:id="@+id/map"

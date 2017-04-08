@@ -31,7 +31,7 @@
         <activity
             android:name=".MyActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".profilename"
             android:label="@string/title_activity_profilename"
@@ -92,7 +92,33 @@
         </activity>
         <activity android:name=".LogInActivity" />
         <activity android:name=".SignUpActivity" />
-        <activity android:name=".AddNewPoints">
+        <activity android:name=".AddNewPoints" />
+        <activity
+            android:name=".TravelerRouteView"
+            android:label="@string/title_activity_traveler_route_view"
+            android:parentActivityName=".MyActivity"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.song.myfirstapp.MyActivity" />
+        </activity>
+        <activity
+            android:name=".EditRoute"
+            android:label="@string/title_activity_edit_route"
+            android:parentActivityName=".MyActivity"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.song.myfirstapp.MyActivity" />
+        </activity>
+        <activity
+            android:name=".EditPoint"
+            android:label="@string/title_activity_edit_point"
+            android:parentActivityName=".MyActivity"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.song.myfirstapp.MyActivity" />
         </activity>
     </application>
 
