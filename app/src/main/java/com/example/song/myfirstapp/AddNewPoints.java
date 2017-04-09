@@ -1,35 +1,39 @@
 package com.example.song.myfirstapp;
 
-        import android.content.Intent;
-        import android.graphics.Color;
-        import android.location.Address;
-        import android.location.Geocoder;
-        import android.os.Bundle;
-        import android.support.annotation.IdRes;
-        import android.support.v4.app.FragmentActivity;
-        import android.support.v7.app.AppCompatActivity;
-        import android.view.View;
-        import android.widget.Button;
-        import android.widget.EditText;
+import android.content.Intent;
+import android.graphics.Color;
+import android.location.Address;
+import android.location.Geocoder;
+import android.os.Bundle;
+import android.support.annotation.IdRes;
+import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 
-        import com.google.android.gms.maps.CameraUpdate;
-        import com.google.android.gms.maps.CameraUpdateFactory;
-        import com.google.android.gms.maps.GoogleMap;
-        import com.google.android.gms.maps.OnMapReadyCallback;
-        import com.google.android.gms.maps.SupportMapFragment;
-        import com.google.android.gms.maps.model.LatLng;
-        import com.google.android.gms.maps.model.Marker;
-        import com.google.android.gms.maps.model.MarkerOptions;
-        import com.google.android.gms.maps.model.Polyline;
-        import com.google.android.gms.maps.model.PolylineOptions;
-        import com.google.firebase.auth.FirebaseAuth;
-        import com.google.firebase.auth.FirebaseUser;
-        import com.google.firebase.database.DatabaseReference;
-        import com.google.firebase.database.FirebaseDatabase;
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.PolylineOptions;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
-        import java.io.IOException;
-        import java.util.ArrayList;
-        import java.util.List;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by zhangqinlan on 4/5/17.
@@ -47,8 +51,9 @@ public class AddNewPoints extends AppCompatActivity implements OnMapReadyCallbac
     private FirebaseAuth mFirebaseAuth;
     private FirebaseUser mFirebaseUser;
     private String mUserId;
-    ArrayList<LatLng> markerList=new ArrayList<>();
-    PolylineOptions route=new PolylineOptions();
+    //ArrayList<LatLng> markerList=new ArrayList<>();
+    //PolylineOptions route=new PolylineOptions();
+    Map<String,Marker> markermap=new HashMap<>();
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,12 +102,22 @@ public class AddNewPoints extends AppCompatActivity implements OnMapReadyCallbac
         mMap.moveCamera(update);
         MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.title("Point "+mknum2+": "+location)
-                     .position(new LatLng(add.getLatitude(), add.getLongitude()));
-        markerList.add(ll);
-        mMap.addMarker(markerOptions);
+                .position(ll);
 
-        route.add(ll).width(5).color(Color.RED);
-        Polyline line=mMap.addPolyline(route);
+        //When the marker number has already existed, remove the previous one
+        if(markermap.get(mknum2)!=null)
+
+        {
+            markermap.get(mknum2).remove();
+        }
+
+        Marker marker_o=mMap.addMarker(markerOptions);
+        markermap.put(mknum2, marker_o);
+
+
+
+
+
 
 
 
@@ -153,7 +168,7 @@ public class AddNewPoints extends AppCompatActivity implements OnMapReadyCallbac
             DatabaseReference childmkdes = childPoint.child("Point Description");
             childmkdes.setValue(mkdes);
 
-        //After submit changes turn to the main page with map
+            //After submit changes turn to the main page with map
 
 
         }
@@ -161,25 +176,31 @@ public class AddNewPoints extends AppCompatActivity implements OnMapReadyCallbac
 
 
     public void finishRoute(View v){
-        int n=markerList.size();
+        PolylineOptions route=new PolylineOptions();
+        int n=markermap.size();
+        ArrayList<Integer> mapkeys=new ArrayList<>();
         double sumLat=0;
         double sumLng=0;
-        for(int i=0;i<n;i++){
-            double lat=markerList.get(i).latitude;
-            double lng=markerList.get(i).longitude;
-            sumLat+=lat;
-            sumLng+=lng;
+        for(Marker e:markermap.values()){
+            sumLat+=e.getPosition().latitude;
+            sumLng+=e.getPosition().longitude;
+        }
+        for(String k: markermap.keySet()){
+            mapkeys.add(Integer.valueOf(k));
+        }
+        Collections.sort(mapkeys);
+
+        //Sort the key of the markermap which is the markernumber, and create polyline according to the order of the number;
+        for(int k:mapkeys){
+            Marker m=markermap.get(String.valueOf(k));
+            route.add(m.getPosition()).width(5).color(Color.RED);
 
         }
+        Polyline line=mMap.addPolyline(route);
+
         LatLng center = new LatLng(sumLat/n, sumLng/n);
         CameraUpdate mapupdate = CameraUpdateFactory.newLatLngZoom(center, 12);
         mMap.moveCamera(mapupdate);
-
-
-
-
-
-
 
 
     }

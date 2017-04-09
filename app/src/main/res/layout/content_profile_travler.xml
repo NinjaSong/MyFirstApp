@@ -174,7 +174,7 @@
                         android:layout_marginRight="30dp"
                         android:layout_marginTop="10dp"
                         android:background="@android:color/holo_blue_light"
-                        android:onClick="buttonTravlerViewClick"
+                        android:onClick="buttonTravelerViewClick"
                         android:text="View"
                         android:textColor="@android:color/white" />
                 </LinearLayout>
