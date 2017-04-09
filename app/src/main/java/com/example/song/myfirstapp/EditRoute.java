@@ -21,7 +21,7 @@ public class EditRoute extends AppCompatActivity {
     }
 
     public void buttonEdit(View v) {
-        Button button = (Button) v;
+        //Button button = (Button) v;
         Intent intent1 = new Intent(this,EditPoint.class);
         this.startActivity(intent1);
 

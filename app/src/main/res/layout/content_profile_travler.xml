@@ -32,10 +32,12 @@
             android:id="@+id/profile_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/header_cover_image"
             android:background="@android:color/holo_blue_dark"
             android:elevation="4dp"
-            android:paddingBottom="24dp">
+            android:paddingBottom="24dp"
+            android:layout_below="@+id/header_cover_image"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true">
 
 
             <ImageView
@@ -56,37 +58,15 @@
                 android:layout_marginTop="16dp" />
 
             <TextView
-                android:id="@+id/user_profile_name"
+                android:id="@+id/traveler_profile_name"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="76dp"
                 android:text="Travler - Andy"
                 android:textColor="#fff"
                 android:textSize="24sp"
                 android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/user_profile_short_bio"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/user_profile_name"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="12dp"
-                android:text="andy@gmail.com"
-                android:textColor="#fff"
-                android:textSize="14sp" />
-
-            <TextView
-                android:id="@+id/phone"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/user_profile_name"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="36dp"
-                android:text="666-666-6666"
-                android:textColor="#fff"
-                android:textSize="14sp" />
 
         </RelativeLayout>
 

@@ -78,7 +78,7 @@
                 android:textSize="14sp" />
 
             <TextView
-                android:id="@+id/phone"
+                android:id="@+id/traveler_phone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/user_profile_name"

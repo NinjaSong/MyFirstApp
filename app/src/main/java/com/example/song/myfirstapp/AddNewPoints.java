@@ -34,6 +34,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * Created by zhangqinlan on 4/5/17.
@@ -51,6 +52,8 @@ public class AddNewPoints extends AppCompatActivity implements OnMapReadyCallbac
     private FirebaseAuth mFirebaseAuth;
     private FirebaseUser mFirebaseUser;
     private String mUserId;
+    private String routeId;
+
     //ArrayList<LatLng> markerList=new ArrayList<>();
     //PolylineOptions route=new PolylineOptions();
     Map<String,Marker> markermap=new HashMap<>();
@@ -61,6 +64,7 @@ public class AddNewPoints extends AppCompatActivity implements OnMapReadyCallbac
         setContentView(R.layout.activity_add_new_routes);
         SupportMapFragment mapFrag = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map2);
         mapFrag.getMapAsync(this);
+        routeId = generateUID();
 
 
         if(mMap != null) {
@@ -84,6 +88,11 @@ public class AddNewPoints extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     public void onMapReady(final GoogleMap map) {
         this.mMap = map;
+
+    }
+
+    public String generateUID(){
+        return UUID.randomUUID().toString();
     }
 
 
@@ -113,6 +122,7 @@ public class AddNewPoints extends AppCompatActivity implements OnMapReadyCallbac
 
         Marker marker_o=mMap.addMarker(markerOptions);
         markermap.put(mknum2, marker_o);
+        addPoints();
 
 
 
@@ -124,7 +134,8 @@ public class AddNewPoints extends AppCompatActivity implements OnMapReadyCallbac
 
     }
 
-    public void addPoints(View v) {
+    public void addPoints() {
+        String pointId = generateUID();
         mFirebaseAuth = FirebaseAuth.getInstance();
         mFirebaseUser = mFirebaseAuth.getCurrentUser();
         if (mFirebaseUser == null) {
@@ -134,38 +145,28 @@ public class AddNewPoints extends AppCompatActivity implements OnMapReadyCallbac
         } else {
             DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
             mUserId = mFirebaseUser.getUid();
-            routeName = (EditText) findViewById(R.id.Routename);
-            routedescription = (EditText) findViewById(R.id.route_descript1);
             markeraddress = (EditText) findViewById(R.id.markeraddress1);
             markerdescription = (EditText) findViewById(R.id.pointdescript1);
-            routetag = (EditText) findViewById(R.id.routetag1);
             markernumber=(EditText) findViewById(R.id.markernumber1);
 
-            String mrouteName = routeName.getText().toString();
-            String routedes = routedescription.getText().toString();
+
             String mkaddress = markeraddress.getText().toString();
             String mkdes = markerdescription.getText().toString();
-            String rttag = routetag.getText().toString();
             String mknum=markernumber.getText().toString();
 
 
-            DatabaseReference childRef = mRootRef.child("agentRoutes").child(mrouteName);
+            DatabaseReference childRef = mRootRef.child("Points").child(pointId);
 
+            DatabaseReference childcreaterId = childRef.child("RouteId");
+            childcreaterId.setValue(routeId);
 
-            DatabaseReference childRoutedes = childRef.child("Route Description");
-            childRoutedes.setValue(routedes);
+            DatabaseReference childPoint = childRef.child("Number");
+            childPoint.setValue(mknum);
 
-            DatabaseReference childcreaterId = childRef.child("Creater Id");
-            childcreaterId.setValue(mUserId);
-
-            DatabaseReference childRouteTag = childRef.child("Route Tag");
-            childRouteTag.setValue(rttag);
-
-            DatabaseReference childPoint = childRef.child("Points").child(mknum);
-            DatabaseReference childMarkerAddr = childPoint.child("Address");
+            DatabaseReference childMarkerAddr = childRef.child("Address");
             childMarkerAddr.setValue(mkaddress);
 
-            DatabaseReference childmkdes = childPoint.child("Point Description");
+            DatabaseReference childmkdes = childRef.child("Point Description");
             childmkdes.setValue(mkdes);
 
             //After submit changes turn to the main page with map
@@ -176,6 +177,7 @@ public class AddNewPoints extends AppCompatActivity implements OnMapReadyCallbac
 
 
     public void finishRoute(View v){
+
         PolylineOptions route=new PolylineOptions();
         int n=markermap.size();
         ArrayList<Integer> mapkeys=new ArrayList<>();
@@ -201,6 +203,44 @@ public class AddNewPoints extends AppCompatActivity implements OnMapReadyCallbac
         LatLng center = new LatLng(sumLat/n, sumLng/n);
         CameraUpdate mapupdate = CameraUpdateFactory.newLatLngZoom(center, 12);
         mMap.moveCamera(mapupdate);
+
+        mFirebaseAuth = FirebaseAuth.getInstance();
+        mFirebaseUser = mFirebaseAuth.getCurrentUser();
+
+        if (mFirebaseUser == null) {
+            // Not logged in, launch the Log In activity
+            Intent intentlg = new Intent(this, LogInActivity.class);
+            this.startActivity(intentlg);
+        } else {
+            DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
+            mUserId = mFirebaseUser.getUid();
+            routeName = (EditText) findViewById(R.id.Routename);
+            routedescription = (EditText) findViewById(R.id.route_descript1);
+            routetag = (EditText) findViewById(R.id.routetag1);
+
+            String mrouteName = routeName.getText().toString();
+            String routedes = routedescription.getText().toString();
+            String rttag = routetag.getText().toString();
+
+            DatabaseReference childRouteRf = mRootRef.child("agentRoutes").child(routeId);
+
+            DatabaseReference childRouteName = childRouteRf.child("Route Name");
+            childRouteName.setValue(mrouteName);
+
+            DatabaseReference childRouteCreate = childRouteRf.child("Creater ID");
+            childRouteCreate.setValue(mUserId);
+
+            DatabaseReference childRoutedes = childRouteRf.child("Route Description");
+            childRoutedes.setValue(routedes);
+
+            DatabaseReference childRoutetag = childRouteRf.child("Route tag");
+            childRoutetag.setValue(rttag);
+
+
+
+
+
+        }
 
 
     }

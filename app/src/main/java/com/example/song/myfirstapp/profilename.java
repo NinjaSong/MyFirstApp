@@ -56,11 +56,21 @@ public class profilename extends AppCompatActivity {
             mUserId = mFirebaseUser.getUid();
             mUserEmail=mFirebaseUser.getEmail();
             final TextView profileName = (TextView) findViewById(R.id.vf).findViewById(R.id.user_profile_name);
-            final TextView profilePhone = (TextView) findViewById(R.id.vf).findViewById(R.id.phone);
+            final TextView profilePhone = (TextView) findViewById(R.id.vf).findViewById(R.id.traveler_phone);
             final TextView profileLocation = (TextView) findViewById(R.id.vf).findViewById(R.id.profile_location);
             final TextView profileHobbies = (TextView) findViewById(R.id.vf).findViewById(R.id.profile_hobbies);
             final TextView profileEmail = (TextView) findViewById(R.id.vf).findViewById(R.id.user_profile_email);
             final TextView name = (TextView) findViewById(R.id.vf).findViewById(R.id.name);
+
+            final TextView agent_name=(TextView) findViewById(R.id.agent_profile_name);
+            final TextView agent_email=(TextView) findViewById(R.id.agent_email);
+            final TextView agent_phone=(TextView) findViewById(R.id.agent_phone);
+            final TextView agent_hobbies=(TextView) findViewById(R.id.agent_hobby);
+
+            final TextView traveler_name=(TextView) findViewById(R.id.traveler_profile_name);
+            //final TextView traveler_email=(TextView) findViewById(R.id.traveler_email);
+            //final TextView traveler_phone=(TextView) findViewById(R.id.traveler_phone);
+
 
 
 
@@ -70,13 +80,24 @@ public class profilename extends AppCompatActivity {
                     String npName=snapshot.child("NickName").getValue().toString();
                     profileName.setText(npName);
                     name.setText("Name:"+npName);
+                    agent_name.setText("Agent-"+npName);
+                    traveler_name.setText("Traveler-"+npName);
+
                     String npPhone=snapshot.child("Telephone").getValue().toString();
                     profilePhone.setText("Telephone:"+npPhone);
+                    agent_phone.setText(npPhone);
+//                    traveler_phone.setText(npPhone);
+
                     String npLocation=snapshot.child("Location").getValue().toString();
                     profileLocation.setText("Location:"+npLocation);
+
                     String npHobby=snapshot.child("Hobby").getValue().toString();
                     profileHobbies.setText("Hobbies:"+npHobby);
+                    agent_hobbies.setText("Hobbies:"+npHobby);
+
                     profileEmail.setText(mUserEmail);
+                    agent_email.setText(mUserEmail);
+//                    traveler_email.setText(mUserEmail);
 
                 }
 
