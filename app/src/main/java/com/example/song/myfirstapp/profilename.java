@@ -1,11 +1,17 @@
 package com.example.song.myfirstapp;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutCompat;
 import android.view.MenuItem;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.view.View;
 import android.view.Menu;
@@ -16,17 +22,19 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 
 
 public class profilename extends AppCompatActivity {
-    private TextView mTextMessage;
     private String mUserId;
     private String mUserEmail;
     private DatabaseReference mDatabase;
     private FirebaseAuth mFirebaseAuth;
     private FirebaseUser mFirebaseUser;
-
+    ArrayList<String> routenamelist=new ArrayList<>();
 
 
 
@@ -35,8 +43,6 @@ public class profilename extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profilename);
 
-
-        //mTextMessage = (TextView) findViewById(R.id.message);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         ViewFlipper vf = (ViewFlipper)findViewById(R.id.vf);
@@ -73,7 +79,6 @@ public class profilename extends AppCompatActivity {
 
 
 
-
             mDatabase.child("users").child(mUserId).addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot snapshot) {
@@ -99,11 +104,16 @@ public class profilename extends AppCompatActivity {
                     agent_email.setText(mUserEmail);
 //                    traveler_email.setText(mUserEmail);
 
+                    for(String Rname:routenamelist){
+                    showAgentRoutes(Rname);
+                    }
+
+
                 }
+
 
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
-
                 }
 
             });
@@ -111,9 +121,55 @@ public class profilename extends AppCompatActivity {
 
 
 
+            //Add the agent routes to Agent Routes profile
+
+
+            Query query=mDatabase.child("agentRoutes").orderByChild("Creater ID").equalTo(mUserId);
+            ValueEventListener valueEventListener = new ValueEventListener()
+            {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot)
+                {
+                    for (DataSnapshot postSnapshot : dataSnapshot.getChildren())
+                    {
+                        routenamelist.add(postSnapshot.child("Route Name").getValue().toString());
+
+                    }
+
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError)
+                {
+
+                }
+            };
+
+            query.addValueEventListener(valueEventListener);
+
+
+//            mDatabase.child("agentRoutes").child().addValueEventListener(new ValueEventListener() {
+//                @Override
+//                public void onDataChange(DataSnapshot dataSnapshot) {
+//
+//                }
+//
+//                @Override
+//                public void onCancelled(DatabaseError databaseError) {
+//
+//                }
+//            });
+
+
+
+
+
         }
 
     }
+
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -160,10 +216,19 @@ public class profilename extends AppCompatActivity {
         startActivity(intentb);
     }
 
-    public void buttonAgentEditClick(View v){
-        Intent intent3=new Intent(this,EditRoute.class);
-        this.startActivity(intent3);
-    }
+//    public void buttonAgentEditClick(View v){
+//        Intent intent3=new Intent(getApplicationContext(),EditRoute.class);
+////        RelativeLayout p=(RelativeLayout) v.getParent();
+////        View R_name=p.getChildAt(0);
+////        TextView rn=(TextView) R_name;
+////        String rnstr=rn.getText().toString().trim();
+////        Bundle b = new Bundle();
+////        b.putString("CurrentRoute","HAHAHA");
+////        intent3.putExtras(b);
+//
+//       intent3.putExtra("CurrentRoute","HAHAHA");
+//        startActivity(intent3);
+//    }
 
 
 
@@ -173,6 +238,73 @@ public class profilename extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         Intent intent2 = new Intent(this, Change_Profile.class);
         startActivity(intent2);
+    }
+
+
+    public void showAgentRoutes(String RouteName){
+        LinearLayout Agent_RouteView=(LinearLayout)findViewById(R.id.Agent_Routview);
+        TextView Route=new TextView(this);
+        RelativeLayout RouteSegment=new RelativeLayout(this);
+        Button Edit=new Button(this);
+
+        Route.setText(RouteName);
+        Route.setTextColor(Color.parseColor("#3399FF"));
+        //Route.setPadding(10,0,0,0);
+
+        RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(
+                RelativeLayout.LayoutParams.WRAP_CONTENT,
+                RelativeLayout.LayoutParams.WRAP_CONTENT);
+        //lp.setMargins(0, 30, 10, 0); //use ints here
+        lp.addRule(RelativeLayout.CENTER_IN_PARENT,RelativeLayout.TRUE);
+        Route.setLayoutParams(lp);
+
+
+
+
+
+        Edit.setBackgroundColor(Color.parseColor("#3399FF"));
+        Edit.setTextColor(Color.parseColor("#FFFFFF"));
+        Edit.setText("Edit");
+        Edit.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                // Perform action on click
+                //Intent activityChangeIntent = new Intent(profilename.this, EditRoute.class);
+                Intent intent3=new Intent(getApplicationContext(),EditRoute.class);
+                RelativeLayout p=(RelativeLayout) v.getParent();
+                View R_name=p.getChildAt(0);
+                TextView rn=(TextView) R_name;
+                String rnstr=rn.getText().toString().trim();
+
+                intent3.putExtra("CurrentRoute",rnstr);
+                startActivity(intent3);
+
+            }
+        });
+        RelativeLayout.LayoutParams lp2 = new RelativeLayout.LayoutParams(
+                RelativeLayout.LayoutParams.WRAP_CONTENT,
+                RelativeLayout.LayoutParams.WRAP_CONTENT);
+        //lp2.setMargins(0, 0, 10, 30); //use ints here
+        lp2.addRule(RelativeLayout.ALIGN_PARENT_RIGHT,RelativeLayout.TRUE);
+        Edit.setLayoutParams(lp2);
+
+
+
+        LinearLayout.LayoutParams lp3 = new LinearLayout.LayoutParams(
+
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+        );
+
+        RouteSegment.setLayoutParams(lp3);
+
+
+        RouteSegment.addView(Route);
+        RouteSegment.addView(Edit);
+        Agent_RouteView.addView(RouteSegment);
+
+
+
+
     }
 
 }
