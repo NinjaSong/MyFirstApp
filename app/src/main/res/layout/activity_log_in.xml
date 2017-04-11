@@ -29,7 +29,7 @@
         android:layout_alignLeft="@+id/emailField"
         android:layout_below="@+id/emailField"
         android:ems="10"
-        android:hint="New Password"
+        android:hint="Password"
         android:inputType="textPassword" />
 
     <Button
@@ -38,7 +38,9 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/passwordField"
         android:layout_below="@+id/passwordField"
-        android:text="Login In" />
+        android:background="@android:color/holo_blue_dark"
+        android:text="Log In"
+        android:textColor="@android:color/white" />
 
     <TextView
         android:id="@+id/signUpText"

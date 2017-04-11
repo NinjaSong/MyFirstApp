@@ -16,7 +16,7 @@
 
 
         <TextView
-            android:id="@+id/textView9"
+            android:id="@+id/EpointRN"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="20dp"
@@ -67,8 +67,9 @@
                 android:text="Point 1"
                 android:textSize="18sp"
                 android:textStyle="bold" />
+
             <TextView
-                android:id="@+id/markeroddaddress"
+                android:id="@+id/markeraddress"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
@@ -77,19 +78,18 @@
                 android:layout_marginRight="35dp"
                 android:layout_marginStart="35dp"
                 android:layout_marginTop="5dp"
-                android:text="Address: Yellow Stone National Park "
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/markeraddress1"
+                android:id="@+id/newmarkeraddr"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_marginBottom="5dp"
                 android:layout_marginEnd="30dp"
-                android:layout_marginStart="35dp"
                 android:layout_marginLeft="35dp"
                 android:layout_marginRight="30dp"
+                android:layout_marginStart="35dp"
                 android:layout_marginTop="5dp"
                 android:background="@color/colorlightgreen"
                 android:ems="10"
@@ -98,7 +98,7 @@
                 android:textSize="18sp" />
 
             <TextView
-                android:id="@+id/textView11"
+                android:id="@+id/markerdescrypt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
@@ -107,19 +107,18 @@
                 android:layout_marginRight="35dp"
                 android:layout_marginStart="35dp"
                 android:layout_marginTop="5dp"
-                android:text="Describe: The most famous national park with spectacular views "
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/pointdescript1"
+                android:id="@+id/newpointdesc"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_marginBottom="5dp"
                 android:layout_marginEnd="30dp"
-                android:layout_marginStart="35dp"
                 android:layout_marginLeft="35dp"
                 android:layout_marginRight="30dp"
+                android:layout_marginStart="35dp"
                 android:layout_marginTop="5dp"
                 android:background="@color/colorlightgreen"
                 android:ems="10"

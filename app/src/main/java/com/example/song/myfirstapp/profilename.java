@@ -121,9 +121,10 @@ public class profilename extends AppCompatActivity {
 
 
 
-            //Add the agent routes to Agent Routes profile
 
 
+
+//Get the routes created by current user as an agent and store the route name to routenamelist
             Query query=mDatabase.child("agentRoutes").orderByChild("Creater ID").equalTo(mUserId);
             ValueEventListener valueEventListener = new ValueEventListener()
             {
@@ -146,22 +147,6 @@ public class profilename extends AppCompatActivity {
             };
 
             query.addValueEventListener(valueEventListener);
-
-
-//            mDatabase.child("agentRoutes").child().addValueEventListener(new ValueEventListener() {
-//                @Override
-//                public void onDataChange(DataSnapshot dataSnapshot) {
-//
-//                }
-//
-//                @Override
-//                public void onCancelled(DatabaseError databaseError) {
-//
-//                }
-//            });
-
-
-
 
 
         }
@@ -205,33 +190,21 @@ public class profilename extends AppCompatActivity {
 
 
 
-
+//Transfer to Traveler Route View page when clicking on The view button on traveler profile page
    public void buttonTravelerViewClick(View v){
        Intent intent1=new Intent(this,TravelerRouteView.class);
        this.startActivity(intent1);
    }
 
+
+//Transfer to AddNewPoints page when clicking on Add New Button
     public void Addroutes(View v){
         Intent intentb=new Intent(this,AddNewPoints.class);
         startActivity(intentb);
     }
 
-//    public void buttonAgentEditClick(View v){
-//        Intent intent3=new Intent(getApplicationContext(),EditRoute.class);
-////        RelativeLayout p=(RelativeLayout) v.getParent();
-////        View R_name=p.getChildAt(0);
-////        TextView rn=(TextView) R_name;
-////        String rnstr=rn.getText().toString().trim();
-////        Bundle b = new Bundle();
-////        b.putString("CurrentRoute","HAHAHA");
-////        intent3.putExtras(b);
-//
-//       intent3.putExtra("CurrentRoute","HAHAHA");
-//        startActivity(intent3);
-//    }
 
-
-
+//Transfet to Edit Profile page when clicking on EditProfile button
     public void gotoEditProfile(View v) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
@@ -241,6 +214,8 @@ public class profilename extends AppCompatActivity {
     }
 
 
+
+    //Add the routes provided by current agents to the agents profile by dynamically create RouteSegments
     public void showAgentRoutes(String RouteName){
         LinearLayout Agent_RouteView=(LinearLayout)findViewById(R.id.Agent_Routview);
         TextView Route=new TextView(this);
@@ -249,22 +224,21 @@ public class profilename extends AppCompatActivity {
 
         Route.setText(RouteName);
         Route.setTextColor(Color.parseColor("#3399FF"));
+        Route.setTextSize(20);
         //Route.setPadding(10,0,0,0);
 
         RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(
                 RelativeLayout.LayoutParams.WRAP_CONTENT,
                 RelativeLayout.LayoutParams.WRAP_CONTENT);
         //lp.setMargins(0, 30, 10, 0); //use ints here
-        lp.addRule(RelativeLayout.CENTER_IN_PARENT,RelativeLayout.TRUE);
+        lp.addRule(RelativeLayout.ALIGN_PARENT_LEFT,RelativeLayout.TRUE);
         Route.setLayoutParams(lp);
-
-
-
 
 
         Edit.setBackgroundColor(Color.parseColor("#3399FF"));
         Edit.setTextColor(Color.parseColor("#FFFFFF"));
         Edit.setText("Edit");
+        Edit.setTextSize(18);
         Edit.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 // Perform action on click
@@ -294,6 +268,7 @@ public class profilename extends AppCompatActivity {
                 LinearLayout.LayoutParams.WRAP_CONTENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT
         );
+        lp3.setMargins(100,20,100,20);
 
         RouteSegment.setLayoutParams(lp3);
 

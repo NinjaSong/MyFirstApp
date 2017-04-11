@@ -48,14 +48,11 @@ public class AddNewPoints extends AppCompatActivity implements OnMapReadyCallbac
     private EditText markerdescription;
     private EditText routetag;
     private EditText markernumber;
-    //private Button AddButton;
     private FirebaseAuth mFirebaseAuth;
     private FirebaseUser mFirebaseUser;
     private String mUserId;
     private String routeId;
 
-    //ArrayList<LatLng> markerList=new ArrayList<>();
-    //PolylineOptions route=new PolylineOptions();
     Map<String,Marker> markermap=new HashMap<>();
 
 
@@ -124,15 +121,10 @@ public class AddNewPoints extends AppCompatActivity implements OnMapReadyCallbac
         markermap.put(mknum2, marker_o);
         addPoints();
 
-
-
-
-
-
-
-
-
     }
+
+
+
 
     public void addPoints() {
         String pointId = generateUID();
@@ -235,10 +227,6 @@ public class AddNewPoints extends AppCompatActivity implements OnMapReadyCallbac
 
             DatabaseReference childRoutetag = childRouteRf.child("Route tag");
             childRoutetag.setValue(rttag);
-
-
-
-
 
         }
 
