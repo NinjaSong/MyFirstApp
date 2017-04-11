@@ -15,7 +15,7 @@
         android:weightSum="1">
 
         <TextView
-            android:id="@+id/RName"
+            android:id="@+id/tRName"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="50dp"
@@ -29,7 +29,7 @@
             app:layout_constraintTop_toTopOf="@+id/parent" />
 
         <fragment
-            android:id="@+id/map2"
+            android:id="@+id/traveler_viewmap"
             android:name="com.google.android.gms.maps.SupportMapFragment"
             android:layout_width="match_parent"
             android:layout_height="220dp"
@@ -41,18 +41,18 @@
             android:layout_marginTop="18dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/RName"
+            app:layout_constraintTop_toBottomOf="@+id/tRName"
             tools:context="com.example.song.myfirstapp.MapsActivity"
             tools:layout="@layout/activity_maps" />
 
         <LinearLayout
-            android:id="@+id/RouteView"
+            android:id="@+id/TViewLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/textView"
+                android:id="@+id/tDesc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
@@ -63,123 +63,6 @@
                 android:textColor="@android:color/holo_blue_light"
                 android:textSize="16dp" />
 
-            <LinearLayout
-                android:id="@+id/RouteContainer7"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:weightSum="1">
-
-                <TextView
-                    android:id="@+id/textView7"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginLeft="0dp"
-                    android:layout_marginRight="0dp"
-                    android:layout_marginStart="30dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_weight="0.56"
-                    android:background="@color/common_google_signin_btn_text_dark_default"
-                    android:text="Point 1\nAddress: Yellow Stone National Park\nDescribe: The most famous national park with spectacular views"
-                    android:textColor="@android:color/holo_blue_dark"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/citymap" />
-
-                <ImageButton
-                    android:id="@+id/imageButton2"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_marginBottom="16dp"
-                    android:layout_marginEnd="60dp"
-                    android:layout_marginRight="30dp"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginStart="0dp"
-                    android:layout_marginTop="16dp"
-                    android:background="@drawable/tripadvisor"
-                    />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/RouteContainer8"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="0.56"
-                android:weightSum="1">
-
-                <TextView
-                    android:id="@+id/textView8"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginLeft="0dp"
-                    android:layout_marginRight="0dp"
-                    android:layout_marginStart="30dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_weight="0.56"
-                    android:background="@color/common_google_signin_btn_text_dark_default"
-                    android:text="Point 2\nAddress: The Grand Canyon\nDescribe:a steep-sided canyon carved by the Colorado River in the U.S"
-                    android:textColor="@android:color/holo_blue_dark"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/citymap" />
-
-                <ImageButton
-                    android:id="@+id/imageButton3"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_marginBottom="16dp"
-                    android:layout_marginEnd="60dp"
-                    android:layout_marginRight="30dp"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginStart="0dp"
-                    android:layout_marginTop="16dp"
-                    android:background="@drawable/tripadvisor"
-                    />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/RouteContainer"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:weightSum="1">
-
-                <TextView
-                    android:id="@+id/textView2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginLeft="0dp"
-                    android:layout_marginRight="0dp"
-                    android:layout_marginStart="30dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_weight="0.56"
-                    android:background="@color/common_google_signin_btn_text_dark_default"
-                    android:text="Point 3\nAddress: Arches National Park\nDescribe: A great place to see the stars"
-                    android:textColor="@android:color/holo_blue_dark"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/citymap" />
-
-                <ImageButton
-                    android:id="@+id/imageButton"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_marginBottom="16dp"
-                    android:layout_marginEnd="60dp"
-                    android:layout_marginRight="60dp"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginStart="0dp"
-                    android:layout_marginTop="16dp"
-                    android:background="@drawable/tripadvisor"
-                    />
-
-            </LinearLayout>
         </LinearLayout>
 
     </LinearLayout>

@@ -8,12 +8,10 @@
     <LinearLayout
         android:id="@+id/my_Linear"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_marginTop="100dp"
         android:orientation="vertical"
-        android:weightSum="1"
-        tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="20dp">
+        android:weightSum="1">
 
         <EditText
             android:id="@+id/CityName"
@@ -46,7 +44,7 @@
             android:layout_marginTop="50dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/RName"
+            app:layout_constraintTop_toBottomOf="@+id/tRName"
             tools:context="com.example.song.myfirstapp.MapsActivity"
             tools:layout="@layout/activity_maps" />
 

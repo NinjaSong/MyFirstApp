@@ -7,10 +7,8 @@ import android.location.Geocoder;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -31,8 +29,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-
-import org.w3c.dom.Text;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -87,7 +83,7 @@ public class EditRoute extends AppCompatActivity implements OnMapReadyCallback {
 
         s = getIntent().getStringExtra("CurrentRoute");
 
-        TextView RouteName=(TextView) findViewById(R.id.RName);
+        TextView RouteName=(TextView) findViewById(R.id.tRName);
         RouteName.setText(s);
 
         mFirebaseAuth = FirebaseAuth.getInstance();

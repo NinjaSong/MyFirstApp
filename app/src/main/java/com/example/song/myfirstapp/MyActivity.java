@@ -51,9 +51,9 @@ public class MyActivity extends AppCompatActivity implements OnMapReadyCallback 
     private FirebaseAuth mFirebaseAuth;
     private FirebaseUser mFirebaseUser;
     private DatabaseReference mDatabase;
-    ArrayList<String> qroutelist = new ArrayList<>();
-    private String mUserId;
-    private String routeId;
+    ArrayList<DataSnapshot> qroutelist = new ArrayList<>();
+    //private String mUserId;
+    //private String routeId;
     private String inputCity;
 
 
@@ -114,16 +114,16 @@ public class MyActivity extends AppCompatActivity implements OnMapReadyCallback 
         mFirebaseUser = mFirebaseAuth.getCurrentUser();
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
-        if (mFirebaseUser == null) {
-            // Not logged in, launch the Log In activity
-            Intent intentlg = new Intent(this, LogInActivity.class);
-            this.startActivity(intentlg);
-        } else {
+//        if (mFirebaseUser == null) {
+//            // Not logged in, launch the Log In activity
+//            Intent intentlg = new Intent(this, LogInActivity.class);
+//            this.startActivity(intentlg);
+//        } else {
             mDatabase.child("agentRoutes").addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    for(String N:qroutelist){
-                        showQualifiedRoutes(N);
+                    for(DataSnapshot n:qroutelist){
+                        showQualifiedRoutes(n);
                     }
 
 
@@ -140,7 +140,7 @@ public class MyActivity extends AppCompatActivity implements OnMapReadyCallback 
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                            qroutelist.add(postSnapshot.child("Route Name").getValue().toString());
+                            qroutelist.add(postSnapshot);
 
                         }
 
@@ -155,18 +155,10 @@ public class MyActivity extends AppCompatActivity implements OnMapReadyCallback 
                query.addValueEventListener(valueEventListener);
 
             }
-        }
+//        }
 
 
     //Get the routes created by current user as an agent and store the route name to routenamelist
-
-
-
-
-
-
-
-
 
 
 
@@ -212,13 +204,13 @@ public class MyActivity extends AppCompatActivity implements OnMapReadyCallback 
 
 
     //Add the routes provided by current agents to the agents profile by dynamically create RouteSegments
-    public void showQualifiedRoutes(String RouteName){
+    public void showQualifiedRoutes(DataSnapshot d){
         LinearLayout Agent_RouteView=(LinearLayout)findViewById(R.id.my_Linear);
         TextView Route=new TextView(this);
         RelativeLayout RouteSegment=new RelativeLayout(this);
         Button V=new Button(this);
 
-        Route.setText(RouteName);
+        Route.setText(d.child("Route Name").getValue().toString());
         Route.setTextColor(Color.parseColor("#3399FF"));
         Route.setTextSize(20);
         //Route.setPadding(10,0,0,0);

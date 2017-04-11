@@ -15,7 +15,7 @@
         android:weightSum="1">
 
         <TextView
-            android:id="@+id/RName"
+            android:id="@+id/tRName"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="50dp"
@@ -40,7 +40,7 @@
             android:layout_marginTop="18dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/RName"
+            app:layout_constraintTop_toBottomOf="@+id/tRName"
             tools:context="com.example.song.myfirstapp.MapsActivity"
             tools:layout="@layout/activity_maps" />
 

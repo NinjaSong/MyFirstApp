@@ -35,6 +35,7 @@ public class profilename extends AppCompatActivity {
     private FirebaseAuth mFirebaseAuth;
     private FirebaseUser mFirebaseUser;
     ArrayList<String> routenamelist=new ArrayList<>();
+    ArrayList<String> troutenamelist=new ArrayList<>();
 
 
 
@@ -108,6 +109,13 @@ public class profilename extends AppCompatActivity {
                     showAgentRoutes(Rname);
                     }
 
+                    for(String tRname:troutenamelist){
+                        showTravlerRoutes(tRname);
+                    }
+
+
+
+
 
                 }
 
@@ -147,6 +155,32 @@ public class profilename extends AppCompatActivity {
             };
 
             query.addValueEventListener(valueEventListener);
+
+
+//Get the routes purchased by current user as an traveler and store the route name to troutenamelist
+            Query query2=mDatabase.child("agentRoutes").orderByChild("Creater ID").equalTo(mUserId);
+            ValueEventListener valueEventListener2 = new ValueEventListener()
+            {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot)
+                {
+                    for (DataSnapshot postSnapshot : dataSnapshot.getChildren())
+                    {
+                        troutenamelist.add(postSnapshot.child("Route Name").getValue().toString());
+
+                    }
+
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError)
+                {
+
+                }
+            };
+
+            query2.addValueEventListener(valueEventListener2);
+
 
 
         }
@@ -251,6 +285,76 @@ public class profilename extends AppCompatActivity {
 
                 intent3.putExtra("CurrentRoute",rnstr);
                 startActivity(intent3);
+
+            }
+        });
+        RelativeLayout.LayoutParams lp2 = new RelativeLayout.LayoutParams(
+                RelativeLayout.LayoutParams.WRAP_CONTENT,
+                RelativeLayout.LayoutParams.WRAP_CONTENT);
+        //lp2.setMargins(0, 0, 10, 30); //use ints here
+        lp2.addRule(RelativeLayout.ALIGN_PARENT_RIGHT,RelativeLayout.TRUE);
+        Edit.setLayoutParams(lp2);
+
+
+
+        LinearLayout.LayoutParams lp3 = new LinearLayout.LayoutParams(
+
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+        );
+        lp3.setMargins(100,20,100,20);
+
+        RouteSegment.setLayoutParams(lp3);
+
+
+        RouteSegment.addView(Route);
+        RouteSegment.addView(Edit);
+        Agent_RouteView.addView(RouteSegment);
+
+
+
+
+    }
+
+
+
+
+    //Add the routes purchased by current user to the travlers profile by dynamically create RouteSegments
+    public void showTravlerRoutes(String RouteName){
+        LinearLayout Agent_RouteView=(LinearLayout)findViewById(R.id.Traveler_Routview);
+        TextView Route=new TextView(this);
+        RelativeLayout RouteSegment=new RelativeLayout(this);
+        Button Edit=new Button(this);
+
+        Route.setText(RouteName);
+        Route.setTextColor(Color.parseColor("#3399FF"));
+        Route.setTextSize(20);
+        //Route.setPadding(10,0,0,0);
+
+        RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(
+                RelativeLayout.LayoutParams.WRAP_CONTENT,
+                RelativeLayout.LayoutParams.WRAP_CONTENT);
+        //lp.setMargins(0, 30, 10, 0); //use ints here
+        lp.addRule(RelativeLayout.ALIGN_PARENT_LEFT,RelativeLayout.TRUE);
+        Route.setLayoutParams(lp);
+
+
+        Edit.setBackgroundColor(Color.parseColor("#3399FF"));
+        Edit.setTextColor(Color.parseColor("#FFFFFF"));
+        Edit.setText("View");
+        Edit.setTextSize(18);
+        Edit.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                // Perform action on click
+                //Intent activityChangeIntent = new Intent(profilename.this, EditRoute.class);
+                Intent intent4=new Intent(getApplicationContext(),TravelerRouteView.class);
+                RelativeLayout p=(RelativeLayout) v.getParent();
+                View R_name=p.getChildAt(0);
+                TextView rn=(TextView) R_name;
+                String rnstr=rn.getText().toString();
+
+                intent4.putExtra("Travler Route",rnstr);
+                startActivity(intent4);
 
             }
         });
