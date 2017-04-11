@@ -193,7 +193,7 @@ public class AddNewPoints extends AppCompatActivity implements OnMapReadyCallbac
         Polyline line=mMap.addPolyline(route);
 
         LatLng center = new LatLng(sumLat/n, sumLng/n);
-        CameraUpdate mapupdate = CameraUpdateFactory.newLatLngZoom(center, 12);
+        CameraUpdate mapupdate = CameraUpdateFactory.newLatLngZoom(center, 9);
         mMap.moveCamera(mapupdate);
 
         mFirebaseAuth = FirebaseAuth.getInstance();
