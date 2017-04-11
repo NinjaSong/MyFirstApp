@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
@@ -38,8 +39,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class EditRoute extends AppCompatActivity {
-    private GoogleMap mmMap;
+public class EditRoute extends AppCompatActivity implements OnMapReadyCallback {
+    private GoogleMap mMap;
     private DatabaseReference mDatabase;
     private FirebaseAuth mFirebaseAuth;
     private FirebaseUser mFirebaseUser;
@@ -50,6 +51,7 @@ public class EditRoute extends AppCompatActivity {
     ArrayList<String> points = new ArrayList<>();
     ArrayList<DataSnapshot> qroutes=new ArrayList<>();
     HashMap<String,DataSnapshot> qpoints=new HashMap<>();
+    ArrayList<List<String>> point_info=new ArrayList<>();
 
 
 
@@ -57,30 +59,30 @@ public class EditRoute extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_route);
-//        SupportMapFragment mapFrag = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.edit_route_map);
-//        mapFrag.getMapAsync(this);
+        SupportMapFragment mapFrag = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.edit_route_map);
+        mapFrag.getMapAsync(this);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-//        if(mmMap != null) {
-//            mmMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
-//                @Override
-//
-//                public void onMapLongClick (LatLng latLng){
-//                    Geocoder geocoder = new Geocoder(EditRoute.this);
-//                    List<Address> list;
-//
-//                    try {
-//                        list = geocoder.getFromLocation(latLng.latitude, latLng.longitude, 1);}
-//                    catch (IOException e) {
-//                        return;
-//                    }
-//
-//                }
-//            });
-//
-//        }
+        if(mMap != null) {
+            mMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
+                @Override
+
+                public void onMapLongClick (LatLng latLng){
+                    Geocoder geocoder = new Geocoder(EditRoute.this);
+                    List<Address> list;
+
+                    try {
+                        list = geocoder.getFromLocation(latLng.latitude, latLng.longitude, 1);}
+                    catch (IOException e) {
+                        return;
+                    }
+
+                }
+            });
+
+        }
 
 
         s = getIntent().getStringExtra("CurrentRoute");
@@ -101,6 +103,7 @@ public class EditRoute extends AppCompatActivity {
                 for(DataSnapshot d:qroutes){
                     searchPoints(d.getKey());
                 }
+
 //                try {
 //                    add_Markers();
 //                } catch (IOException e) {
@@ -131,6 +134,8 @@ public class EditRoute extends AppCompatActivity {
                         TextView des = (TextView) findViewById(R.id.RouteView).findViewById(R.id.Description);
                         des.setText(postSnapshot.child("Route Description").getValue().toString());
 
+
+
                     }
                 }
 
@@ -144,6 +149,11 @@ public class EditRoute extends AppCompatActivity {
         };
 
         query.addValueEventListener(valueEventListener);
+
+    }
+    @Override
+    public void onMapReady(final GoogleMap map) {
+        this.mMap = map;
 
     }
 
@@ -166,6 +176,12 @@ public class EditRoute extends AppCompatActivity {
                     qpoints.put(num,postSnapshot);
                     String addr = postSnapshot.child("Address").getValue().toString();
                     String pointdes = postSnapshot.child("Point Description").getValue().toString();
+
+                    List<String> info=new ArrayList<>();
+                    info.add(num);
+                    info.add(addr);
+                    info.add(pointdes);
+                    point_info.add(info);
 
 
                     points.add("Point: "+num+"\n"+"Address: "+addr+"\n"+"Description: "+pointdes);
@@ -265,32 +281,32 @@ public class EditRoute extends AppCompatActivity {
 
     }
 
-//    public void add_Markers() throws IOException {
-//        int n=point_info.size();
-//        for(int i=0;i<n;i++){
-//            String number=point_info.get(i).get(0);
-//            String location=point_info.get(i).get(1);
-//            String descript=point_info.get(i).get(2);
-//            Geocoder geocoder = new Geocoder(this);
-//            List<Address> list = geocoder.getFromLocationName(location, 1);
-//            Address add = list.get(0);
-//            //String locality = add.getLocality();
-//            LatLng ll = new LatLng(add.getLatitude(), add.getLongitude());
-//            CameraUpdate update = CameraUpdateFactory.newLatLngZoom(ll, 15);
-//            mMap.moveCamera(update);
-//            MarkerOptions markerOptions = new MarkerOptions();
-//            markerOptions.title("Point "+number+": "+location)
-//                    .position(ll);
-//            Marker marker_o=mMap.addMarker(markerOptions);
-//        }
-//
-//
-//
-//
-//
-//
-//
-//    }
+    public void add_Markers(View v) throws IOException {
+        int n=qpoints.size();
+        for(int i=0;i<n;i++){
+            String number=point_info.get(i).get(0);
+            String location=point_info.get(i).get(1);
+            String descript=point_info.get(i).get(2);
+            Geocoder geocoder = new Geocoder(this);
+            List<Address> list = geocoder.getFromLocationName(location, 1);
+            Address add = list.get(0);
+            //String locality = add.getLocality();
+            LatLng ll = new LatLng(add.getLatitude(), add.getLongitude());
+            CameraUpdate update = CameraUpdateFactory.newLatLngZoom(ll, 10);
+            mMap.moveCamera(update);
+            MarkerOptions markerOptions = new MarkerOptions();
+            markerOptions.title("Point "+number+": "+location)
+                    .position(ll);
+            Marker marker_o=mMap.addMarker(markerOptions);
+        }
+
+
+
+
+
+
+
+    }
 
 
 

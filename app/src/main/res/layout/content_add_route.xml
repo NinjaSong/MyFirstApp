@@ -51,13 +51,13 @@
             android:layout_height="34dp"
             android:layout_marginBottom="5dp"
             android:layout_marginEnd="30dp"
-            android:layout_marginStart="35dp"
             android:layout_marginLeft="35dp"
             android:layout_marginRight="35dp"
+            android:layout_marginStart="35dp"
             android:layout_marginTop="15dp"
             android:background="@color/colorlightgreen"
             android:ems="10"
-            android:hint="Type in the Route Tag"
+            android:hint="Type in the Route Area"
             android:inputType="textMultiLine"
             android:textSize="18sp" />
 

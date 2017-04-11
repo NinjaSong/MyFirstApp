@@ -30,7 +30,7 @@
             app2:layout_constraintTop_toTopOf="@+id/parent" />
 
         <fragment
-            android:id="@+id/map2"
+            android:id="@+id/edit_point_map"
             android:name="com.google.android.gms.maps.SupportMapFragment"
             android:layout_width="302dp"
             android:layout_height="167dp"

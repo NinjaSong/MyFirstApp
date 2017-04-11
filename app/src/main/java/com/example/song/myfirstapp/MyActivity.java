@@ -1,5 +1,8 @@
 package com.example.song.myfirstapp;
 
+import android.graphics.Color;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 
@@ -12,72 +15,161 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.content.Intent;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 //import com.google.firebase.database;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
-public class MyActivity extends AppCompatActivity {
-    public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-        private GoogleMap mMap;
+public class MyActivity extends AppCompatActivity implements OnMapReadyCallback {
 
-        @Override
-        protected void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            setContentView(R.layout.activity_maps);
-            // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-            SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                    .findFragmentById(R.id.map);
-            mapFragment.getMapAsync(this);
-        }
+    GoogleMap mMap;
+    private FirebaseAuth mFirebaseAuth;
+    private FirebaseUser mFirebaseUser;
+    private DatabaseReference mDatabase;
+    ArrayList<String> qroutelist = new ArrayList<>();
+    private String mUserId;
+    private String routeId;
+    private String inputCity;
 
 
-        /**
-         * Manipulates the map once available.
-         * This callback is triggered when the map is ready to be used.
-         * This is where we can add markers or lines, add listeners or move the camera. In this case,
-         * we just add a marker near Sydney, Australia.
-         * If Google Play services is not installed on the device, the user will be prompted to install
-         * it inside the SupportMapFragment. This method will only be triggered once the user has
-         * installed Google Play services and returned to the app.
-         */
-        @Override
-        public void onMapReady(GoogleMap googleMap) {
-            mMap = googleMap;
 
-            // Add a marker in Sydney and move the camera
-            LatLng sydney = new LatLng(-34, 151);
-            mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-            mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
-        }
-    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        SupportMapFragment mapFrag = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.citymap);
+        mapFrag.getMapAsync(this);
+        if (mMap != null) {
+            mMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
+                @Override
 
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.upload);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
+                public void onMapLongClick(LatLng latLng) {
+                    Geocoder geocoder = new Geocoder(MyActivity.this);
+                    List<Address> list;
 
-        // Write a message to the database
-//        DatabaseReference myRef1 = FirebaseDatabase.getInstance().getReference(); //Getting root reference
-//        myRef1.setValue("Hello, World!");
+                    try {
+                        list = geocoder.getFromLocation(latLng.latitude, latLng.longitude, 1);
+                    } catch (IOException e) {
+                        return;
+                    }
+
+                }
+            });
+        }
     }
+
+    @Override
+    public void onMapReady(final GoogleMap map) {
+        this.mMap = map;
+
+    }
+
+
+    public void submitCity(View v) throws IOException {
+        TextView cityname = (TextView) findViewById(R.id.CityName);
+        String cName = cityname.getText().toString();
+        inputCity = cName;
+        Geocoder geocoder = new Geocoder(this);
+        List<Address> list = geocoder.getFromLocationName(cName, 1);
+        Address add = list.get(0);
+        //String locality = add.getLocality();
+        LatLng ll = new LatLng(add.getLatitude(), add.getLongitude());
+        CameraUpdate update = CameraUpdateFactory.newLatLngZoom(ll, 15);
+        mMap.moveCamera(update);
+        MarkerOptions markerOptions = new MarkerOptions();
+        markerOptions.title(cName)
+                .position(ll);
+        Marker marker_o = mMap.addMarker(markerOptions);
+
+
+        // Initialize Firebase Auth and Database Reference
+        mFirebaseAuth = FirebaseAuth.getInstance();
+        mFirebaseUser = mFirebaseAuth.getCurrentUser();
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+
+        if (mFirebaseUser == null) {
+            // Not logged in, launch the Log In activity
+            Intent intentlg = new Intent(this, LogInActivity.class);
+            this.startActivity(intentlg);
+        } else {
+            mDatabase.child("agentRoutes").addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    for(String N:qroutelist){
+                        showQualifiedRoutes(N);
+                    }
+
+
+
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                }
+
+            });
+                Query query = mDatabase.child("agentRoutes").orderByChild("Route Tag").equalTo(inputCity);
+                ValueEventListener valueEventListener = new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                            qroutelist.add(postSnapshot.child("Route Name").getValue().toString());
+
+                        }
+
+                    }
+
+                    public void onCancelled(DatabaseError databaseError)
+                    {
+
+                    }
+                };
+
+               query.addValueEventListener(valueEventListener);
+
+            }
+        }
+
+
+    //Get the routes created by current user as an agent and store the route name to routenamelist
+
+
+
+
+
+
+
+
+
+
+
 
 
     public void buttonViewClick(View v){
@@ -86,12 +178,17 @@ public class MyActivity extends AppCompatActivity {
         this.startActivity(intent1);
     }
 
+
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_my, menu);
         return true;
     }
+
+
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -111,6 +208,76 @@ public class MyActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+
+
+    //Add the routes provided by current agents to the agents profile by dynamically create RouteSegments
+    public void showQualifiedRoutes(String RouteName){
+        LinearLayout Agent_RouteView=(LinearLayout)findViewById(R.id.my_Linear);
+        TextView Route=new TextView(this);
+        RelativeLayout RouteSegment=new RelativeLayout(this);
+        Button V=new Button(this);
+
+        Route.setText(RouteName);
+        Route.setTextColor(Color.parseColor("#3399FF"));
+        Route.setTextSize(20);
+        //Route.setPadding(10,0,0,0);
+
+        RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(
+                RelativeLayout.LayoutParams.WRAP_CONTENT,
+                RelativeLayout.LayoutParams.WRAP_CONTENT);
+        //lp.setMargins(0, 30, 10, 0); //use ints here
+        lp.addRule(RelativeLayout.ALIGN_PARENT_LEFT,RelativeLayout.TRUE);
+        Route.setLayoutParams(lp);
+
+
+        V.setBackgroundColor(Color.parseColor("#3399FF"));
+        V.setTextColor(Color.parseColor("#FFFFFF"));
+        V.setText("View");
+        V.setTextSize(18);
+        V.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                // Perform action on click
+                //Intent activityChangeIntent = new Intent(profilename.this, EditRoute.class);
+                Intent intent3=new Intent(getApplicationContext(),RouteView.class);
+                RelativeLayout p=(RelativeLayout) v.getParent();
+                View R_name=p.getChildAt(0);
+                TextView rn=(TextView) R_name;
+                String rnstr=rn.getText().toString().trim();
+
+                intent3.putExtra("CurrentRoute",rnstr);
+                startActivity(intent3);
+
+            }
+        });
+        RelativeLayout.LayoutParams lp2 = new RelativeLayout.LayoutParams(
+                RelativeLayout.LayoutParams.WRAP_CONTENT,
+                RelativeLayout.LayoutParams.WRAP_CONTENT);
+        //lp2.setMargins(0, 0, 10, 30); //use ints here
+        lp2.addRule(RelativeLayout.ALIGN_PARENT_RIGHT,RelativeLayout.TRUE);
+        V.setLayoutParams(lp2);
+
+
+
+        LinearLayout.LayoutParams lp3 = new LinearLayout.LayoutParams(
+
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+        );
+        lp3.setMargins(100,20,100,20);
+
+        RouteSegment.setLayoutParams(lp3);
+
+
+        RouteSegment.addView(Route);
+        RouteSegment.addView(V);
+        Agent_RouteView.addView(RouteSegment);
+
+
+
+
+    }
+
 
 
 }

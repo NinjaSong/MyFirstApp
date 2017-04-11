@@ -107,7 +107,7 @@
                         android:textSize="15sp"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/map" />
+                        app:layout_constraintTop_toBottomOf="@+id/citymap" />
 
                     <Button
                         android:id="@+id/ViewButton5"
@@ -144,7 +144,7 @@
                         android:textSize="15sp"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/map" />
+                        app:layout_constraintTop_toBottomOf="@+id/citymap" />
 
                     <Button
                         android:id="@+id/ViewButton6"
