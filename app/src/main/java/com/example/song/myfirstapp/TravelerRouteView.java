@@ -1,6 +1,5 @@
 package com.example.song.myfirstapp;
 
-import android.content.Intent;
 import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
@@ -79,7 +78,7 @@ public class TravelerRouteView extends AppCompatActivity implements OnMapReadyCa
 
         s = getIntent().getStringExtra("Travler Route");
 
-        TextView RouteName=(TextView) findViewById(R.id.tRName);
+        TextView RouteName=(TextView) findViewById(R.id.tRName2);
         RouteName.setText(s);
 
         mFirebaseAuth = FirebaseAuth.getInstance();

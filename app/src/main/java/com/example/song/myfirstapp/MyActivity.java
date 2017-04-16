@@ -83,6 +83,11 @@ public class MyActivity extends AppCompatActivity implements OnMapReadyCallback 
                 }
             });
         }
+
+        mFirebaseAuth = FirebaseAuth.getInstance();
+        mFirebaseUser = mFirebaseAuth.getCurrentUser();
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+
     }
 
     @Override
@@ -109,33 +114,18 @@ public class MyActivity extends AppCompatActivity implements OnMapReadyCallback 
         Marker marker_o = mMap.addMarker(markerOptions);
 
 
-        // Initialize Firebase Auth and Database Reference
-        mFirebaseAuth = FirebaseAuth.getInstance();
-        mFirebaseUser = mFirebaseAuth.getCurrentUser();
-        mDatabase = FirebaseDatabase.getInstance().getReference();
-
-//        if (mFirebaseUser == null) {
-//            // Not logged in, launch the Log In activity
-//            Intent intentlg = new Intent(this, LogInActivity.class);
-//            this.startActivity(intentlg);
-//        } else {
-            mDatabase.child("agentRoutes").addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    for(DataSnapshot n:qroutelist){
-                        showQualifiedRoutes(n);
-                    }
+         //Initialize Firebase Auth and Database Reference
+//        mFirebaseAuth = FirebaseAuth.getInstance();
+//        mFirebaseUser = mFirebaseAuth.getCurrentUser();
+//        mDatabase = FirebaseDatabase.getInstance().getReference();
 
 
-
-                }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-                }
-
-            });
-                Query query = mDatabase.child("agentRoutes").orderByChild("Route Tag").equalTo(inputCity);
+        if (mFirebaseUser == null) {
+            // Not logged in, launch the Log In activity
+            Intent intentlg = new Intent(this, LogInActivity.class);
+            this.startActivity(intentlg);
+        } else {
+                Query query = mDatabase.child("agentRoutes").orderByChild("Route tag").equalTo(inputCity);
                 ValueEventListener valueEventListener = new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
@@ -154,22 +144,27 @@ public class MyActivity extends AppCompatActivity implements OnMapReadyCallback 
 
                query.addValueEventListener(valueEventListener);
 
+
+            mDatabase.child("agentRoutes").addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    for(DataSnapshot n:qroutelist){
+                        showQualifiedRoutes(n);
+                    }
+
+
+
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                }
+
+            });
+
+
             }
-//        }
-
-
-    //Get the routes created by current user as an agent and store the route name to routenamelist
-
-
-
-
-
-    public void buttonViewClick(View v){
-        Button button = (Button) v;
-        Intent intent1 = new Intent(this,RouteView.class);
-        this.startActivity(intent1);
-    }
-
+        }
 
 
     @Override
@@ -236,8 +231,14 @@ public class MyActivity extends AppCompatActivity implements OnMapReadyCallback 
                 View R_name=p.getChildAt(0);
                 TextView rn=(TextView) R_name;
                 String rnstr=rn.getText().toString().trim();
+                for(DataSnapshot pp:qroutelist){
+                    if(pp.child("Route Name").getValue().toString().equals(rnstr)){
+                        String rRouteId=pp.getKey();
+                        intent3.putExtra("ResultRoute",rRouteId);
 
-                intent3.putExtra("CurrentRoute",rnstr);
+                    }
+                }
+
                 startActivity(intent3);
 
             }

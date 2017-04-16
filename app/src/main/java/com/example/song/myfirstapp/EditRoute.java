@@ -83,7 +83,7 @@ public class EditRoute extends AppCompatActivity implements OnMapReadyCallback {
 
         s = getIntent().getStringExtra("CurrentRoute");
 
-        TextView RouteName=(TextView) findViewById(R.id.tRName);
+        TextView RouteName=(TextView) findViewById(R.id.tRName2);
         RouteName.setText(s);
 
         mFirebaseAuth = FirebaseAuth.getInstance();
@@ -100,11 +100,6 @@ public class EditRoute extends AppCompatActivity implements OnMapReadyCallback {
                     searchPoints(d.getKey());
                 }
 
-//                try {
-//                    add_Markers();
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
 
             }
 
