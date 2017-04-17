@@ -1,5 +1,6 @@
 package com.example.song.myfirstapp;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.location.Address;
@@ -31,7 +32,14 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import java.math.BigDecimal;
 
+
+import com.paypal.android.sdk.payments.PayPalConfiguration;
+import com.paypal.android.sdk.payments.PayPalPayment;
+import com.paypal.android.sdk.payments.PayPalService;
+import com.paypal.android.sdk.payments.PaymentActivity;
+import com.paypal.android.sdk.payments.PaymentConfirmation;
 import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -51,6 +59,15 @@ public class RouteView extends AppCompatActivity implements OnMapReadyCallback {
 //    Map<String,DataSnapshot> qpoints=new HashMap<>();
     ArrayList<List<String>> point_info=new ArrayList<>();
 //    ArrayList<String> points = new ArrayList<>();
+
+    TextView m_response;
+
+
+    PayPalConfiguration m_configuration;
+    // the id is the link to the paypal account, we have to create an app and get its id
+    String m_paypalClientId = "Aabj-VSAGmLsuQ8l8VO-EvMbXZIml7mofebDIgPkUq4rmYApA2ycwtuCgxC-b6sNzGflnW0RnkaII4OA";
+    Intent m_service;
+    int m_paypalRequestCode = 999; // or any number you want
 
 
     @Override
@@ -79,12 +96,13 @@ public class RouteView extends AppCompatActivity implements OnMapReadyCallback {
                 }
             });
         }
+        m_configuration = new PayPalConfiguration()
+                .environment(PayPalConfiguration.ENVIRONMENT_SANDBOX) // sandbox for test, production for real
+                .clientId(m_paypalClientId);
 
-
-
-
-
-
+        m_service = new Intent(this, PayPalService.class);
+        m_service.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION, m_configuration); // configuration above
+        startService(m_service); // paypal service, listening to calls to paypal app
 
 
         rRouteId = getIntent().getStringExtra("ResultRoute");
@@ -131,7 +149,44 @@ public class RouteView extends AppCompatActivity implements OnMapReadyCallback {
 
     }
 
+    public void pay(View view)
+    {
+        PayPalPayment cart = new PayPalPayment(new BigDecimal(10), "USD", "Cart Pay",
+                PayPalPayment.PAYMENT_INTENT_SALE);
 
+
+        Intent intent = new Intent(this, PaymentActivity.class); // it's not paypalpayment, it's paymentactivity !
+        intent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION, m_configuration);
+        intent.putExtra(PaymentActivity.EXTRA_PAYMENT, cart);
+        startActivityForResult(intent, m_paypalRequestCode);
+    }
+
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == m_paypalRequestCode)
+        {
+            if(resultCode == Activity.RESULT_OK)
+            {
+                // we have to confirm that the payment worked to avoid fraud
+                PaymentConfirmation confirmation = data.getParcelableExtra(PaymentActivity.EXTRA_RESULT_CONFIRMATION);
+
+                if(confirmation != null)
+                {
+                    String state = confirmation.getProofOfPayment().getState();
+
+                    if(state.equals("approved")) // if the payment worked, the state equals approved
+                        m_response.setText("payment approved");
+                    else
+                        m_response.setText("error in the payment");
+                }
+                else
+                    m_response.setText("confirmation is null");
+            }
+        }
+    }
 
     public void show_Markers(View v) throws IOException {
 
