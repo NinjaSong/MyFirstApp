@@ -44,6 +44,7 @@ public class AddNewPoints extends AppCompatActivity implements OnMapReadyCallbac
     GoogleMap mMap;
     private EditText routeName;
     private EditText routedescription;
+    private EditText routePrice;
     private EditText markeraddress;
     private EditText markerdescription;
     private EditText routetag;
@@ -52,6 +53,7 @@ public class AddNewPoints extends AppCompatActivity implements OnMapReadyCallbac
     private FirebaseUser mFirebaseUser;
     private String mUserId;
     private String routeId;
+
 
     Map<String,Marker> markermap=new HashMap<>();
 
@@ -209,15 +211,20 @@ public class AddNewPoints extends AppCompatActivity implements OnMapReadyCallbac
             routeName = (EditText) findViewById(R.id.Routename);
             routedescription = (EditText) findViewById(R.id.route_descript1);
             routetag = (EditText) findViewById(R.id.routetag1);
+            routePrice=(EditText) findViewById(R.id.routeprice1);
 
             String mrouteName = routeName.getText().toString();
             String routedes = routedescription.getText().toString();
             String rttag = routetag.getText().toString();
+            String rprice=routePrice.getText().toString();
 
             DatabaseReference childRouteRf = mRootRef.child("agentRoutes").child(routeId);
 
             DatabaseReference childRouteName = childRouteRf.child("Route Name");
             childRouteName.setValue(mrouteName);
+
+            DatabaseReference childRoutePrice=childRouteRf.child("Route Price");
+            childRoutePrice.setValue(rprice);
 
             DatabaseReference childRouteCreate = childRouteRf.child("Creater ID");
             childRouteCreate.setValue(mUserId);

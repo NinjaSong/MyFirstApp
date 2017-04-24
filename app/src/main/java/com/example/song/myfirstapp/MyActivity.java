@@ -98,6 +98,7 @@ public class MyActivity extends AppCompatActivity implements OnMapReadyCallback 
 
 
     public void submitCity(View v) throws IOException {
+        //qroutelist.clear();
         TextView cityname = (TextView) findViewById(R.id.CityName);
         String cName = cityname.getText().toString();
         inputCity = cName;
@@ -114,7 +115,7 @@ public class MyActivity extends AppCompatActivity implements OnMapReadyCallback 
         Marker marker_o = mMap.addMarker(markerOptions);
 
 
-         //Initialize Firebase Auth and Database Reference
+        //Initialize Firebase Auth and Database Reference
 //        mFirebaseAuth = FirebaseAuth.getInstance();
 //        mFirebaseUser = mFirebaseAuth.getCurrentUser();
 //        mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -125,24 +126,24 @@ public class MyActivity extends AppCompatActivity implements OnMapReadyCallback 
             Intent intentlg = new Intent(this, LogInActivity.class);
             this.startActivity(intentlg);
         } else {
-                Query query = mDatabase.child("agentRoutes").orderByChild("Route tag").equalTo(inputCity);
-                ValueEventListener valueEventListener = new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                            qroutelist.add(postSnapshot);
-
-                        }
+            Query query = mDatabase.child("agentRoutes").orderByChild("Route tag").equalTo(inputCity);
+            ValueEventListener valueEventListener = new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                        qroutelist.add(postSnapshot);
 
                     }
 
-                    public void onCancelled(DatabaseError databaseError)
-                    {
+                }
 
-                    }
-                };
+                public void onCancelled(DatabaseError databaseError)
+                {
 
-               query.addValueEventListener(valueEventListener);
+                }
+            };
+
+            query.addValueEventListener(valueEventListener);
 
 
             mDatabase.child("agentRoutes").addValueEventListener(new ValueEventListener() {
@@ -163,8 +164,8 @@ public class MyActivity extends AppCompatActivity implements OnMapReadyCallback 
             });
 
 
-            }
         }
+    }
 
 
     @Override

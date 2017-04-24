@@ -106,7 +106,7 @@ public class profilename extends AppCompatActivity {
 //                    traveler_email.setText(mUserEmail);
 
                     for(String Rname:routenamelist){
-                    showAgentRoutes(Rname);
+                        showAgentRoutes(Rname);
                     }
 
                     for(String tRname:troutenamelist){
@@ -162,11 +162,11 @@ public class profilename extends AppCompatActivity {
             ValueEventListener valueEventListener2 = new ValueEventListener()
             {
                 @Override
-                public void onDataChange(DataSnapshot dataSnapshot)
+                public void onDataChange(DataSnapshot dataSnapshot2)
                 {
-                    for (DataSnapshot postSnapshot : dataSnapshot.getChildren())
+                    for (DataSnapshot postSnapshot2 : dataSnapshot2.getChildren())
                     {
-                        troutenamelist.add(postSnapshot.child("Route Name").getValue().toString());
+                        troutenamelist.add(postSnapshot2.child("Route Name").getValue().toString());
 
                     }
 
@@ -224,21 +224,21 @@ public class profilename extends AppCompatActivity {
 
 
 
-//Transfer to Traveler Route View page when clicking on The view button on traveler profile page
-   public void buttonTravelerViewClick(View v){
-       Intent intent1=new Intent(this,TravelerRouteView.class);
-       this.startActivity(intent1);
-   }
+    //Transfer to Traveler Route View page when clicking on The view button on traveler profile page
+    public void buttonTravelerViewClick(View v){
+        Intent intent1=new Intent(this,TravelerRouteView.class);
+        this.startActivity(intent1);
+    }
 
 
-//Transfer to AddNewPoints page when clicking on Add New Button
+    //Transfer to AddNewPoints page when clicking on Add New Button
     public void Addroutes(View v){
         Intent intentb=new Intent(this,AddNewPoints.class);
         startActivity(intentb);
     }
 
 
-//Transfet to Edit Profile page when clicking on EditProfile button
+    //Transfet to Edit Profile page when clicking on EditProfile button
     public void gotoEditProfile(View v) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
@@ -353,7 +353,7 @@ public class profilename extends AppCompatActivity {
                 TextView rn=(TextView) R_name;
                 String rnstr=rn.getText().toString();
 
-                intent4.putExtra("Travler Route",rnstr);
+                intent4.putExtra("Traveler Route",rnstr);
                 startActivity(intent4);
 
             }

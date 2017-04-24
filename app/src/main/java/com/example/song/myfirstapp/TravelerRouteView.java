@@ -49,14 +49,14 @@ public class TravelerRouteView extends AppCompatActivity implements OnMapReadyCa
 
 
     @Override
-        protected void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            setContentView(R.layout.activity_traveler_route_view);
-            Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-            setSupportActionBar(toolbar);
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            SupportMapFragment mapFrag = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.traveler_viewmap);
-            mapFrag.getMapAsync(this);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_traveler_route_view);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        SupportMapFragment mapFrag = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.traveler_viewmap);
+        mapFrag.getMapAsync(this);
         if(mMap != null) {
             mMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
                 @Override
@@ -76,7 +76,7 @@ public class TravelerRouteView extends AppCompatActivity implements OnMapReadyCa
 
         }
 
-        s = getIntent().getStringExtra("Travler Route");
+        s = getIntent().getStringExtra("Traveler Route");
 
         TextView RouteName=(TextView) findViewById(R.id.tRName2);
         RouteName.setText(s);
@@ -95,11 +95,6 @@ public class TravelerRouteView extends AppCompatActivity implements OnMapReadyCa
                     searchPoints(d.getKey());
                 }
 
-//                try {
-//                    add_Markers();
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
 
             }
 

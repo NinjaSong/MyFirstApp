@@ -46,6 +46,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 public class RouteView extends AppCompatActivity implements OnMapReadyCallback {
     GoogleMap rvMap;
@@ -55,6 +56,8 @@ public class RouteView extends AppCompatActivity implements OnMapReadyCallback {
     private String rRouteId;
     private String AreaName;
     private String mUserId;
+    private String rPrice;
+    //private String tRouteId;
 //    ArrayList<DataSnapshot> rRoutes=new ArrayList<>();
 //    Map<String,DataSnapshot> qpoints=new HashMap<>();
     ArrayList<List<String>> point_info=new ArrayList<>();
@@ -77,6 +80,9 @@ public class RouteView extends AppCompatActivity implements OnMapReadyCallback {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        //tRouteId = generateUID();
+
         SupportMapFragment mapFrag = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.rvMap);
         mapFrag.getMapAsync(this);
         if (rvMap != null) {
@@ -125,6 +131,8 @@ public class RouteView extends AppCompatActivity implements OnMapReadyCallback {
                 TextView RouteName=(TextView) findViewById(R.id.tRName2);
                 RouteName.setText(rName);
 
+
+                rPrice=dataSnapshot.child("Route Price").getValue().toString();
                 String rDescript = dataSnapshot.child("Route Description").getValue().toString();
                 TextView RouteDes = (TextView) findViewById(R.id.RouteView1).findViewById(R.id.rDescript);
                 RouteDes.setText(rDescript);
@@ -149,9 +157,51 @@ public class RouteView extends AppCompatActivity implements OnMapReadyCallback {
 
     }
 
-    public void pay(View view)
-    {
-        PayPalPayment cart = new PayPalPayment(new BigDecimal(10), "USD", "Cart Pay",
+
+    public String generateUID(){
+        return UUID.randomUUID().toString();
+    }
+
+    public void pay(View view) {
+
+        //Add the purchased route information to the travelerRoutes table
+        mDatabase.child("agentRoutes").child(rRouteId).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String trName = dataSnapshot.child("Route Name").getValue().toString();
+                String trDesc=dataSnapshot.child("Route Description").getValue().toString();
+                String trPrice=dataSnapshot.child("Route Price").getValue().toString();
+                String trTag=dataSnapshot.child("Route tag").getValue().toString();
+
+                DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
+                String purchaser=mFirebaseUser.getUid();
+                DatabaseReference childRouteRf2 = mRootRef.child("travelerRoutes").child(rRouteId);
+
+                DatabaseReference childRouteName2 = childRouteRf2.child("Route Name");
+                childRouteName2.setValue(trName);
+
+                DatabaseReference childRoutePrice2=childRouteRf2.child("Route Price");
+                childRoutePrice2.setValue(trPrice);
+
+                DatabaseReference childRoutePurchaser = childRouteRf2.child("Purchaser ID");
+                childRoutePurchaser.setValue(mUserId);
+
+                DatabaseReference childRoutedes2 = childRouteRf2.child("Route Description");
+                childRoutedes2.setValue(trDesc);
+
+                DatabaseReference childRoutetag2 = childRouteRf2.child("Route tag");
+                childRoutetag2.setValue(trTag);
+
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
+
+        PayPalPayment cart = new PayPalPayment(new BigDecimal(Double.parseDouble(rPrice)), "USD", "Cart Pay",
                 PayPalPayment.PAYMENT_INTENT_SALE);
 
 
@@ -162,19 +212,15 @@ public class RouteView extends AppCompatActivity implements OnMapReadyCallback {
     }
 
 
-    protected void onActivityResult(int requestCode, int resultCode, Intent data)
-    {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(requestCode == m_paypalRequestCode)
-        {
-            if(resultCode == Activity.RESULT_OK)
-            {
+        if(requestCode == m_paypalRequestCode) {
+            if(resultCode == Activity.RESULT_OK) {
                 // we have to confirm that the payment worked to avoid fraud
                 PaymentConfirmation confirmation = data.getParcelableExtra(PaymentActivity.EXTRA_RESULT_CONFIRMATION);
 
-                if(confirmation != null)
-                {
+                if(confirmation != null) {
                     String state = confirmation.getProofOfPayment().getState();
 
                     if(state.equals("approved")) // if the payment worked, the state equals approved
@@ -193,14 +239,14 @@ public class RouteView extends AppCompatActivity implements OnMapReadyCallback {
         Geocoder geocoder = new Geocoder(this);
         List<Address> list = geocoder.getFromLocationName(AreaName, 1);
         Address add = list.get(0);
-            //String locality = add.getLocality();
+        //String locality = add.getLocality();
         LatLng ll = new LatLng(add.getLatitude(), add.getLongitude());
-            CameraUpdate update = CameraUpdateFactory.newLatLngZoom(ll, 10);
-            rvMap.moveCamera(update);
-            MarkerOptions markerOptions = new MarkerOptions();
-            markerOptions.title(AreaName)
-                    .position(ll);
-            Marker marker_o=rvMap.addMarker(markerOptions);
+        CameraUpdate update = CameraUpdateFactory.newLatLngZoom(ll, 10);
+        rvMap.moveCamera(update);
+        MarkerOptions markerOptions = new MarkerOptions();
+        markerOptions.title(AreaName)
+                .position(ll);
+        Marker marker_o=rvMap.addMarker(markerOptions);
     }
 
 
