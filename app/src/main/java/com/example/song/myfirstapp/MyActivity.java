@@ -98,7 +98,9 @@ public class MyActivity extends AppCompatActivity implements OnMapReadyCallback 
 
 
     public void submitCity(View v) throws IOException {
-        //qroutelist.clear();
+        LinearLayout Agent_RouteView=(LinearLayout)findViewById(R.id.rContainer);
+        Agent_RouteView.removeAllViews();
+        qroutelist.clear();
         TextView cityname = (TextView) findViewById(R.id.CityName);
         String cName = cityname.getText().toString();
         inputCity = cName;
@@ -113,12 +115,6 @@ public class MyActivity extends AppCompatActivity implements OnMapReadyCallback 
         markerOptions.title(cName)
                 .position(ll);
         Marker marker_o = mMap.addMarker(markerOptions);
-
-
-        //Initialize Firebase Auth and Database Reference
-//        mFirebaseAuth = FirebaseAuth.getInstance();
-//        mFirebaseUser = mFirebaseAuth.getCurrentUser();
-//        mDatabase = FirebaseDatabase.getInstance().getReference();
 
 
         if (mFirebaseUser == null) {
@@ -201,7 +197,7 @@ public class MyActivity extends AppCompatActivity implements OnMapReadyCallback 
 
     //Add the routes provided by current agents to the agents profile by dynamically create RouteSegments
     public void showQualifiedRoutes(DataSnapshot d){
-        LinearLayout Agent_RouteView=(LinearLayout)findViewById(R.id.my_Linear);
+        LinearLayout Agent_RouteView=(LinearLayout)findViewById(R.id.rContainer);
         TextView Route=new TextView(this);
         RelativeLayout RouteSegment=new RelativeLayout(this);
         Button V=new Button(this);

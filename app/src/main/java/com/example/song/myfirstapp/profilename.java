@@ -35,7 +35,7 @@ public class profilename extends AppCompatActivity {
     private FirebaseAuth mFirebaseAuth;
     private FirebaseUser mFirebaseUser;
     ArrayList<String> routenamelist=new ArrayList<>();
-    ArrayList<String> troutenamelist=new ArrayList<>();
+    ArrayList<DataSnapshot> troutenamelist=new ArrayList<>();
 
 
 
@@ -75,8 +75,6 @@ public class profilename extends AppCompatActivity {
             final TextView agent_hobbies=(TextView) findViewById(R.id.agent_hobby);
 
             final TextView traveler_name=(TextView) findViewById(R.id.traveler_profile_name);
-            //final TextView traveler_email=(TextView) findViewById(R.id.traveler_email);
-            //final TextView traveler_phone=(TextView) findViewById(R.id.traveler_phone);
 
 
 
@@ -92,7 +90,7 @@ public class profilename extends AppCompatActivity {
                     String npPhone=snapshot.child("Telephone").getValue().toString();
                     profilePhone.setText("Telephone:"+npPhone);
                     agent_phone.setText(npPhone);
-//                    traveler_phone.setText(npPhone);
+
 
                     String npLocation=snapshot.child("Location").getValue().toString();
                     profileLocation.setText("Location:"+npLocation);
@@ -103,18 +101,16 @@ public class profilename extends AppCompatActivity {
 
                     profileEmail.setText(mUserEmail);
                     agent_email.setText(mUserEmail);
-//                    traveler_email.setText(mUserEmail);
 
                     for(String Rname:routenamelist){
                         showAgentRoutes(Rname);
                     }
 
-                    for(String tRname:troutenamelist){
-                        showTravlerRoutes(tRname);
+
+                    for(DataSnapshot tRname:troutenamelist){
+
+                        showTravlerRoutes(tRname.child("Route Name").getValue().toString());
                     }
-
-
-
 
 
                 }
@@ -125,7 +121,6 @@ public class profilename extends AppCompatActivity {
                 }
 
             });
-
 
 
 
@@ -157,6 +152,8 @@ public class profilename extends AppCompatActivity {
             query.addValueEventListener(valueEventListener);
 
 
+
+
 //Get the routes purchased by current user as an traveler and store the route name to troutenamelist
             Query query2=mDatabase.child("agentRoutes").orderByChild("Creater ID").equalTo(mUserId);
             ValueEventListener valueEventListener2 = new ValueEventListener()
@@ -166,7 +163,7 @@ public class profilename extends AppCompatActivity {
                 {
                     for (DataSnapshot postSnapshot2 : dataSnapshot2.getChildren())
                     {
-                        troutenamelist.add(postSnapshot2.child("Route Name").getValue().toString());
+                        troutenamelist.add(postSnapshot2);
 
                     }
 
@@ -220,15 +217,6 @@ public class profilename extends AppCompatActivity {
 
     };
 
-
-
-
-
-    //Transfer to Traveler Route View page when clicking on The view button on traveler profile page
-    public void buttonTravelerViewClick(View v){
-        Intent intent1=new Intent(this,TravelerRouteView.class);
-        this.startActivity(intent1);
-    }
 
 
     //Transfer to AddNewPoints page when clicking on Add New Button
@@ -321,6 +309,7 @@ public class profilename extends AppCompatActivity {
 
     //Add the routes purchased by current user to the travlers profile by dynamically create RouteSegments
     public void showTravlerRoutes(String RouteName){
+
         LinearLayout Agent_RouteView=(LinearLayout)findViewById(R.id.Traveler_Routview);
         TextView Route=new TextView(this);
         RelativeLayout RouteSegment=new RelativeLayout(this);
