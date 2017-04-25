@@ -45,6 +45,18 @@
             tools:context="com.example.song.myfirstapp.MapsActivity"
             tools:layout="@layout/activity_maps" />
 
+        <Button
+            android:id="@+id/button5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="20dp"
+            android:background="@android:color/holo_blue_dark"
+            android:onClick="add_Markers2"
+            android:text="Show Points"
+            android:textColor="@android:color/white" />
+
         <LinearLayout
             android:id="@+id/TViewLayout"
             android:layout_width="match_parent"

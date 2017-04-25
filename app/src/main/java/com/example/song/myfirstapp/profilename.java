@@ -155,7 +155,7 @@ public class profilename extends AppCompatActivity {
 
 
 //Get the routes purchased by current user as an traveler and store the route name to troutenamelist
-            Query query2=mDatabase.child("agentRoutes").orderByChild("Creater ID").equalTo(mUserId);
+            Query query2=mDatabase.child("agentRoutes").orderByChild("Creater ID");
             ValueEventListener valueEventListener2 = new ValueEventListener()
             {
                 @Override
@@ -163,7 +163,9 @@ public class profilename extends AppCompatActivity {
                 {
                     for (DataSnapshot postSnapshot2 : dataSnapshot2.getChildren())
                     {
+                        if(!postSnapshot2.child("Creater ID").getValue().toString().equals(mUserId)){
                         troutenamelist.add(postSnapshot2);
+                        }
 
                     }
 

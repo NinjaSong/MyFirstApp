@@ -107,7 +107,7 @@ public class TravelerRouteView extends AppCompatActivity implements OnMapReadyCa
 
 
 
-        Query query=mDatabase.child("agentRoutes").orderByChild("Creater ID").equalTo(mUserId);
+        Query query=mDatabase.child("agentRoutes").orderByChild("Creater ID");
         ValueEventListener valueEventListener = new ValueEventListener()
         {
             @Override
@@ -217,28 +217,6 @@ public class TravelerRouteView extends AppCompatActivity implements OnMapReadyCa
         Edit.setBackgroundColor(Color.parseColor("#3399FF"));
         Edit.setTextColor(Color.parseColor("#FFFFFF"));
         Edit.setText("Info");
-//        Edit.setTextSize(18);
-//        Edit.setOnClickListener(new View.OnClickListener() {
-//            public void onClick(View v) {
-//                // Perform action on click
-//                Intent intent3=new Intent(getApplicationContext(),EditPoint.class);
-//                RelativeLayout p=(RelativeLayout) v.getParent();
-//                View R_name=p.getChildAt(0);
-//                TextView rn=(TextView) R_name;
-//                char pnstr=rn.getText().toString().charAt(7);
-//                String pn= pnstr+"";
-//                for (String k : qpoints.keySet()){
-//                    if (k.equals(pn)){
-//                        id = qpoints.get(k).getKey();
-//                    }
-//                }
-//                intent3.putExtra("CurrentRoute",s);
-//                intent3.putExtra("CurrentPoint",pn);
-//                intent3.putExtra("pointid",id);
-//                startActivity(intent3);
-//
-//            }
-//        });
         RelativeLayout.LayoutParams lp2 = new RelativeLayout.LayoutParams(
                 RelativeLayout.LayoutParams.WRAP_CONTENT,
                 RelativeLayout.LayoutParams.WRAP_CONTENT);
@@ -267,7 +245,7 @@ public class TravelerRouteView extends AppCompatActivity implements OnMapReadyCa
 
     }
 
-    public void add_Markers(View v) throws IOException {
+    public void add_Markers2(View v) throws IOException {
         int n=qpoints.size();
         for(int i=0;i<n;i++){
             String number=point_info.get(i).get(0);
